@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace project_23_09_2024
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string multiline = @"to jest wieloliniowy ciąg znaków";
+			Console.WriteLine(multiline);
+			
+			//metody manipulacji ciągami
+			//Replace
+			string text = "Programowanie objektowe"
+			string newText = text.Replace("objektowe", "strukturalne");
+			Console.WriteLine(newText);
+			
+			newText = newText.Replace('e', 'E');
+			Console.WriteLine(newText); //Programowanie strukturalnE
+			
+			
+			Console.ReadKey();
+        }
+    }
+}
