@@ -78,6 +78,25 @@ namespace project_23_09_2024
 			////Franciszek
 			//Nowak
 			//Poznań,Programista
+
+                        //Trim
+			string text2 = "Franciszek"
+			Console.WriteLine(text2.Lenght); //12
+			Console.WriteLine(text2); //  Franciszek
+			text2= text2.Trim();
+			Console.WriteLine(text2.Lenght); //10
+			
+			string text3 = " Janusz  ";
+			string trimmedStart = text3.TrimStart;
+			string trimmedEnd = text3.TrimEnd;
+			Console.WriteLine(text3.Lenght); //9
+			Console.WriteLine(trimmedStart.Lenght); //8
+			Console.WriteLine(trimmedEnd.Lenght); //7
+			
+			sring trim = text3.Trim();
+			Console.WriteLine(trim.Lenght); //6
+			
+			//Join, Substring, ToUpper, ToLower, Contains, Index0f
 			
 			
 			Console.ReadKey();
