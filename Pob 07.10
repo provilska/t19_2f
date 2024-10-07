@@ -1,1 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Join
+            string[] fruits = {"banan", "czereśnia", "arbuz"};
+            string result = string.Join(",", fruits);
+            Console.WriteLine(result); //banan,czereśnia,arbuz
+
+            string[] numbers = {"jeden", "dwa", "trzy"};
+            string result1 = string.Join("-", numbers);
+            Console.WriteLine(result1); //jeden-dwa-trzy
+
+            //Substring
+            string text = "Janusz Nowak";
+            string substring = text.Substring(7); 
+            Console.WriteLine(substring); //Nowak
+
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+
 
