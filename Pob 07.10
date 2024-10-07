@@ -20,9 +20,17 @@ namespace ConsoleApp1
             Console.WriteLine(result1); //jeden-dwa-trzy
 
             //Substring
-            string text = "Janusz Nowak";
-            string substring = text.Substring(7); 
-            Console.WriteLine(substring); //Nowak
+string text = "Janusz Nowak";
+string substring = text.Substring(7); //Nowak
+substring = text.Substring(7, 4); //Nowa
+substring = text.Substring(0, 6); //Janusz
+substring = text.Substring(text.Length-1); //k
+substring = text.Substring(text.Length - 2); //ak
+substring = text.Substring(text.Length - 2,1); //a
+substring = text.Substring(text.Length - 5); //Nowak
+substring = text.Substring(text.Length - 5,0); //
+
+
 
             Console.ReadKey();
         }
