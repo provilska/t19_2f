@@ -51,6 +51,45 @@ namespace ConsoleApp1
 
 
             Console.ReadKey();
+
+//IndexOf
+text = "Anna Paweł Anna Tomasz Anna";
+int index = text.IndexOf("Anna"); //0
+index = text.IndexOf("Pawał"); //5
+index = text.IndexOf("Anna", 6); //11
+index = text.IndexOf("anna", 6); //-1
+index = text.IndexOf("anna", 6, StringComparison.OrdinalIgnoreCase); //11
+index = text.IndexOf("anna", 6, 8, StringComparison.OrdinalIgnoreCase); //-1
+index = text.IndexOf("anna", 6, 4, StringComparison.OrdinalIgnoreCase); //-1
+index = text.IndexOf("anna", 6, 9, StringComparison.OrdinalIgnoreCase); //11
+Console.WriteLine(index);
+
+Console.Clear();
+
+//zadanie
+Console.Write("Wprowasż imię: ");
+string name = Console.ReadLine();
+Console.WriteLine(name);
+
+string formattedName = FormatName(name);
+
+
+
+
+
+
+
+
+Console.ReadKey();
+
+private static string FormatName(string name)
+{
+    if (string.IsNullOrEmpty(name))
+    {
+        return name;
+    }
+    return char.ToUpper(name[0]) = name.Substring(1).ToLower;
+}
         }
     }
 }
