@@ -20,15 +20,33 @@ namespace ConsoleApp1
             Console.WriteLine(result1); //jeden-dwa-trzy
 
             //Substring
-string text = "Janusz Nowak";
-string substring = text.Substring(7); //Nowak
-substring = text.Substring(7, 4); //Nowa
-substring = text.Substring(0, 6); //Janusz
-substring = text.Substring(text.Length-1); //k
-substring = text.Substring(text.Length - 2); //ak
-substring = text.Substring(text.Length - 2,1); //a
-substring = text.Substring(text.Length - 5); //Nowak
-substring = text.Substring(text.Length - 5,0); //
+            string text = "Janusz Nowak";
+            string substring = text.Substring(7); //Nowak
+            substring = text.Substring(7, 4); //Nowa
+            substring = text.Substring(0, 6); //Janusz
+            substring = text.Substring(text.Length-1); //k
+            substring = text.Substring(text.Length - 2); //ak
+            substring = text.Substring(text.Length - 2,1); //a
+            substring = text.Substring(text.Length - 5); //Nowak
+            substring = text.Substring(text.Length - 5,0); //
+
+            //ToUpper
+            text = "arbuz";
+            string UpperText = text.ToUpper();
+            Console.WriteLine(UpperText); //ARBUZ
+            
+            text = "JANUSZ";
+            string LowerText = text.ToLower();
+            Console.WriteLine(UpperText); //janusz
+            
+            //Contains
+            text = "Janusz Kowalski";
+            bool containsText = text.Contains("Janusz"); //true
+            bool containsText1 = text.Contains("janusz"); //false
+            //bool containsTextIgnoreCase = text.Contains("janusz", StringComparison.OrdinalIgnoreCase); //true
+            Console.WriteLine(containsText);
+
+
 
 
 
