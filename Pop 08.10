@@ -62,4 +62,150 @@ Uwagi:
 •	Upewnij się, że każda operacja jest poprawnie wykonana i zatwierdzona.
 •	W razie problemów, skonsultuj się z dokumentacją Git lub zapytaj prowadzącego.
 
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        nowy_plik.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git commit -m "dodano nowy plik nowy_plik.txt"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'egzamin@DESKTOP-4IC6OPH.(none)')
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        nowy_plik.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git add nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ ^C
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$  git commit -m "dodano nowy plik nowy_plik.txt"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'egzamin@DESKTOP-4IC6OPH.(none)')
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ echo "dodanie nowej linii"
+dodanie nowej linii
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ echo "dodanie nowej linii" >>nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ cat nowy_plik.txt
+dodanie nowej linii
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git add nowy_plik.txt
+warning: in the working copy of 'nowy_plik.txt', LF will be replaced by CRLF the next time Git touches it
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   nowy_plik.txt
+
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git commit
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'egzamin@DESKTOP-4IC6OPH.(none)')
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ i
+bash: i: command not found
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ ^C
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git config --global user.email sofiya.p07@gmail.com
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git config --global user.name provilska
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git commit
+[master a91087b] dodanie nowego pliku zmodyfikowanie pliku nowy_plik.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git push origin main
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/szyper/t19_repo_2f.git'
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git add nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$ git commit -m "zaaktalizuj"
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
+$
 
