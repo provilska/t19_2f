@@ -1,127 +1,27 @@
-07:58
-
-Lekcja_1_git
-
 1 Operacje na katalogach i plikach
-
-2
-
 # Wyświetlenie bieżącego katalogu
-
 3 pwd
-
-4
-
-*
-
-LTE 81%
-
-5
-
 # Zmiana katalogu (cd) i wklejanie adresu (shif
-
 t + insert)
-
 6 cd shift + insert
-
-7
-
 8 # Wyświetlenie plików w katalogu
-
 9 1s
-
-10 7
-
-11
-
 # Wyświetlenie ukrytych plików
-
-12
-
 ls -a
-
-13
-
-14
-
 # Wyświetlenie szczegółowych informacji o plika ch (w tym ukrytych)
-
-15
-
 ls -la
-
-16
-
-17
-
 # Tworzenie pliku README.md i zapisanie treści
-
-18
-
 echo "# pierwszy projekt" > README.md
-
-19
-
-20
-
 # Tworzenie pliku "test" z zawartością "test"
-
-21
-
 echo "test" > test
-
-22
-
-23
-
 # Wyświetlenie zawartości pliku .git
-
-24
-
 cat .git
-
-25
-
-26
-
 # Tworzenie pustego pliku .git
-
-27
-
 touch.git
-
-28
-
-29
-
 # Czyszczenie terminala
-
-30
-
 clear
-
-31
-
-32
-
 # Tworzenie aliasu do czyszczenia ekranu
-
-33
-
 alias c=clear
-
-34
-
-35
-
-Operacje na repozytorium git
-
-36
-
-# Inicjalizacja nowego repozytorium Git
-
-37
-
 git init
 # Inicjalizacja nowego repozytorium Git
 git init
