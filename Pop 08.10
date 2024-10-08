@@ -209,3 +209,157 @@ nothing to commit, working tree clean
 egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_repo_2f (master)
 $
 
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ mkdir nowy_katalog
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ nv nowy_plik.txt nowy katalog
+bash: nv: command not found
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ mv nowy_plik.txt nowy katalog
+mv: target 'katalog' is not a directory
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ nv nowy_plik.txt nowy_katalog
+bash: nv: command not found
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ mv nowy_plik.txt nowy_katalog
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ ls
+nowy_katalog/
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ tree /f
+bash: tree: command not found
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ ls -R
+.:
+nowy_katalog/
+
+./nowy_katalog:
+nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git ls-tree -r HEAD --name-only
+fatal: Not a valid object name HEAD
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git add nowy_plik.txt
+fatal: pathspec 'nowy_plik.txt' did not match any files
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$  git add nowy_katalog/nowy_plik.txt
+warning: in the working copy of 'nowy_katalog/nowy_plik.txt', LF will be replaced by CRLF the next time Git touches it
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git commit
+fatal: unable to resolve HEAD after creating commit
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git status
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   nowy_katalog/nowy_plik.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        README.md
+
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stush
+git: 'stush' is not a git command. See 'git --help'.
+
+The most similar command is
+        stash
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ cat nowy_katalog/nowy_plik.txt
+dodanie nowej linii
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ echo "afdhf">nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stash
+You do not have the initial commit yet
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stash pop
+No stash entries found.
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ cat nowy_katalog/nowy_plik.txt
+dodanie nowej linii
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ touch new_file.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ ls
+README.md  new_file.txt  nowy_katalog/  nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ ls -R
+.:
+README.md  new_file.txt  nowy_katalog/  nowy_plik.txt
+
+./nowy_katalog:
+nowy_plik.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ echo "pierwsza linia" > new_file.txt
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ cat new_file.txt
+pierwsza linia
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stash
+You do not have the initial commit yet
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stash -u
+You do not have the initial commit yet
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git init
+Reinitialized existing Git repository in C:/Users/egzamin/Desktop/Nowy folder/t19_2f/.git/
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git stash -u
+You do not have the initial commit yet
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git status
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   nowy_katalog/nowy_plik.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        README.md
+        new_file.txt
+        nowy_plik.txt
+
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git commit -m
+error: switch `m' requires a value
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$ git add new_file.txt
+warning: in the working copy of 'new_file.txt', LF will be replaced by CRLF the next time Git touches it
+
+egzamin@DESKTOP-4IC6OPH MINGW64 ~/Desktop/Nowy folder/t19_2f (.invalid)
+$
