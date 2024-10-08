@@ -1,207 +1,48 @@
-
 # Inicjalizacja nowego repozytorium Git
-
-37
-
 git init
-
-38
-
-81%
-
-39
-
 # Wyświetlenie aktualnego stanu repozytorium
-
-40
-
 git status
-
-41
-
-42
-
 # Klonowanie zdalnego repozytorium
 git clone link_do_repo
-
 # Dodanie pliku "test" do śledzenia
-
 git add test
-
 # Dodanie pliku README.md do śledzenia
-
-49
-
 git add README.md
-
-50
-
-51
-
 # Tworzenie commitu z opisem "test"
-
-52
-
 git commit -m "test"
-
-53
-
-54
-
 # Tworzenie commitu z opisem "dodanie pliku REA DME.md do repo"
-
-55
-
 git commit -m "dodanie pliku README.md do repo"
-
-56
-
-57
-
 # Wysyłanie zmian na zdalne repozytorium (gałąź master)
-
-58
-
 git push u origin master
-
-59
-
-60
-
 # Wysyłanie lokalnych commitów do zdalnego repo zytorium
-
-61
-
 git push
 
-62
-
-63
-
 Operacje na plikach i konfiguracji Gita
-
-64
-
 # Wyświetlenie zawartości katalogu .git
-
-65
-
 ls .git
-
-66
-
-67
-
 # Wyświetlenie zawartości katalogu info w folde rze .git
-
-68
-
 ls .git/info
-07:58
 
 Tworzenie repo
-
 1 mkdir git1
-
-2
-
 cd git1
-
 3 git init
-
-4
-
 git add.
-
 5 echo "# git1" >> README.md
-
-*
-
-LTE 81%
-
 6 git remote add orgin https://github.com/ GrygielSzymon/git1.git
-
-7
-
 git push orgin main
-
-8
-
-9
-
-10
-
-1.
-
 mkdir git1
-
-11
-
-2.
-
 cd git
 $ echo "# git1" >> README.md
-
-13
-
-4.
-
 $ git init
-
-14 5.
-
 $ git add README.md
-
-15 6.
-
 $ git commit -m "first commit"
-
-16 7.
-
 $ git branch -M main
-
-17
-
 8. $ git remote add origin https://github.com/ GrygielSzymon/git1.git
-
-18
-
-9.
-
-$ git push u origin main
-
-19
-
-10.
-
+cat$ git push u origin main
 $ git config --list
-
-20
-
-11.
-
 $ git remote remove origin
-
-21
-
-22
-
-23
-
-24
-
 git config --global user.name "GrygielSzymon"
-
-25
-
 git config --global user.email "szymongrygiel13 2@gmail.com"
-
-26
-
-27
-
 git config --global --unset user.name "Grygiels zymon"
-
-28
-
 git config --global-unset user.email "szymong rygie1132@gmail.com"
