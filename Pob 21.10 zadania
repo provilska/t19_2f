@@ -29,3 +29,147 @@ Dodaj funkcje do formatowania tekstu:
 Funkcja do formatowania imienia (pierwsza litera duża, reszta małe).
 Funkcja do liczenia słów w tekście.
 Funkcja do wyszukiwania i zamiany tekstu.
+
+ROWIĄZANIE:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Wprowadź imię: ");
+            string firstName = Console.ReadLine();
+
+            Console.Write("Wprowadź nazwisko: ");
+            string lastName = Console.ReadLine();
+
+            string fullName = $"{firstName} {lastName}";
+
+            Console.WriteLine("Pełne imię i nazwisko: " + fullName);
+
+            Console.Write("Wprowadź ścieżkę do pliku: ");
+            string filePath = Console.ReadLine();
+
+            string escapedPath = filePath.Replace("\\", "\\\\");
+            Console.WriteLine("Ścieżka z użyciem znaków ucieczki: " + escapedPath);
+
+            Console.WriteLine("Ścieżka jako literał dosłowny: @" + filePath);
+
+            Console.Write("Wprowadź zdanie: ");
+            string task = Console.ReadLine();
+            string newTask = task.Replace("you", "yoongi");
+            Console.WriteLine(newTask);
+            string[] words = newTask.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string word in words)
+            {
+                Console.WriteLine(word);
+            }
+
+            Console.Write("Wprowadź kolejne zdanie: ");
+            string task2 = Console.ReadLine();
+            char[] separators = { ' ', ',', ';', '\t' };
+            string[] words2 = task2.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string word in words2)
+            {
+                Console.WriteLine(word);
+            }
+
+            Console.Write("Wprowadź tekst z nadmiarowymi spacjami: ");
+            string textSpaces = Console.ReadLine();
+            Console.WriteLine(textSpaces.Length);
+            string textTrimmed = textSpaces.Trim();
+            Console.WriteLine(textTrimmed.Length);
+
+            Console.Write("Wprowadz listę owoców oddzielonych przecinkami: ");
+            string list = Console.ReadLine();
+            string[] fruits = list.Split(',');
+            foreach (string fruit in fruits) 
+            { 
+                Console.WriteLine(fruit.Trim()); 
+            }
+
+            string joinedFruits = string.Join(" - ", fruits);
+            Console.WriteLine(joinedFruits);
+
+
+            Console.Write("Wprowadz tekst: ");
+            string textToModern = Console.ReadLine();
+            string sub = textToModern.Substring(0, 5);
+            Console.WriteLine(sub);
+
+            Console.WriteLine(textToModern.ToUpper()); 
+            Console.WriteLine(textToModern.ToLower());
+
+            bool contains = textToModern.Contains("yoongi");
+            Console.WriteLine(contains);
+
+            int index = textToModern.IndexOf("yoongi");
+            Console.WriteLine(index);
+
+            string text = Console.ReadLine();
+            int wordCount = CountWords(text);
+            Console.WriteLine("Liczba słów: " + wordCount);
+
+            // Wprowadzanie tekstu przez użytkownika
+            Console.Write("Wprowadź tekst: ");
+            string textt = Console.ReadLine();
+
+            // Wprowadzanie słowa do wyszukania
+            Console.Write("Wprowadź słowo, które chcesz znaleźć: ");
+            string wordToFind = Console.ReadLine();
+
+            // Wprowadzanie słowa, które ma zastąpić znalezione słowo
+            Console.Write("Wprowadź nowe słowo, które ma zastąpić stare: ");
+            string wordToReplace = Console.ReadLine();
+
+            // Wykonanie zamiany w tekście
+            string modifiedText = ReplaceText(textt, wordToFind, wordToReplace);
+
+            // Wyświetlenie wyniku
+            Console.WriteLine("Zmodyfikowany tekst: " + modifiedText);
+
+            Console.ReadKey();
+
+        }
+
+        static string ReplaceText(string text, string wordToFind, string wordToReplace)
+        {
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(wordToFind))
+            {
+                return text; // Jeśli tekst lub słowo do wyszukania jest puste, zwróć oryginalny tekst
+            }
+
+            // Zastępuje wszystkie wystąpienia `wordToFind` na `wordToReplace`
+            return text.Replace(wordToFind, wordToReplace);
+        }
+
+        private static string FormatName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return name;
+            return char.ToUpper(name[0]) + name.Substring(1).ToLower();
+        }
+
+        static int CountWords(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return 0;
+
+            // Podział tekstu na słowa według separatorów (spacja, tabulator, nowa linia)
+            string[] words = text.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return words.Length;
+        }
+
+    }
+
+}
