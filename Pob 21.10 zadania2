@@ -14,3 +14,105 @@ Wykonanie operacji:
 Wykonaj wybraną operację na ciągu znaków i wyświetl wynik.
 Powtórzenie operacji:
 Zapytaj użytkownika, czy chce wykonać kolejną operację na tym samym ciągu znaków
+
+ROZWIĄZANIE:
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Wprowadź ciąg znaków:");
+        string input = Console.ReadLine();
+
+        bool continueOperations = true;
+        while (continueOperations)
+        {
+            Console.WriteLine("\nMenu operacji:");
+            Console.WriteLine("1. Odwrócenie ciągu znaków");
+            Console.WriteLine("2. Usunięcie samogłosek");
+            Console.WriteLine("3. Zamiana małych liter na wielkie i odwrotnie");
+            Console.WriteLine("4. Usunięcie spacji");
+            Console.WriteLine("5. Wyjście");
+            Console.Write("Wybierz operację (1-5): ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    input = ReverseString(input);
+                    Console.WriteLine("Odwrócony ciąg: " + input);
+                    break;
+                case "2":
+                    input = RemoveVowels(input);
+                    Console.WriteLine("Ciąg bez samogłosek: " + input);
+                    break;
+                case "3":
+                    input = SwapCase(input);
+                    Console.WriteLine("Ciąg z zamienionymi literami: " + input);
+                    break;
+                case "4":
+                    input = RemoveSpaces(input);
+                    Console.WriteLine("Ciąg bez spacji: " + input);
+                    break;
+                case "5":
+                    continueOperations = false;
+                    Console.WriteLine("Koniec programu.");
+                    break;
+                default:
+                    Console.WriteLine("Nieprawidłowy wybór, spróbuj ponownie.");
+                    break;
+            }
+
+            if (continueOperations)
+            {
+                Console.Write("\nCzy chcesz wykonać kolejną operację na tym samym ciągu? (T/N): ");
+                string repeat = Console.ReadLine();
+                if (repeat.ToUpper() != "T")
+                {
+                    continueOperations = false;
+                    Console.WriteLine("Koniec programu.");
+                }
+            }
+        }
+    }
+
+    // Funkcja do odwracania ciągu znaków
+    static string ReverseString(string input)
+    {
+        char[] charArray = input.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
+    }
+
+    // Funkcja do usuwania samogłosek
+    static string RemoveVowels(string input)
+    {
+        string vowels = "AEIOUaeiou";
+        foreach (char vowel in vowels)
+        {
+            input = input.Replace(vowel.ToString(), "");
+        }
+        return input;
+    }
+
+    // Funkcja do zamiany małych liter na wielkie i odwrotnie
+    static string SwapCase(string input)
+    {
+        char[] charArray = input.ToCharArray();
+        for (int i = 0; i < charArray.Length; i++)
+        {
+            if (char.IsUpper(charArray[i]))
+                charArray[i] = char.ToLower(charArray[i]);
+            else if (char.IsLower(charArray[i]))
+                charArray[i] = char.ToUpper(charArray[i]);
+        }
+        return new string(charArray);
+    }
+
+    // Funkcja do usuwania spacji
+    static string RemoveSpaces(string input)
+    {
+        return input.Replace(" ", "");
+    }
+}
