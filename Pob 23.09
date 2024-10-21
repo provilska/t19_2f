@@ -98,6 +98,33 @@ namespace project_23_09_2024
 			
 			//Join, Substring, ToUpper, ToLower, Contains, Index0f
 			
+			//Join
+     			string[] names = { "Franciszek", "Nowak", "Poznań", "Programista" };
+string joinedNames = string.Join(";", names);
+Console.WriteLine(joinedNames); // Franciszek;Nowak;Poznań;Programista
+
+			//Substring
+			string text = "Franciszek";
+string sub = text.Substring(0, 5);
+Console.WriteLine(sub); // Franc
+
+			//ToUpper, ToLower
+			string original = "Franciszek";
+Console.WriteLine(original.ToUpper()); // FRANCISZEK
+Console.WriteLine(original.ToLower()); // franciszek
+
+			//Contains
+			string sentence = "Franciszek Nowak";
+bool containsNowak = sentence.Contains("Nowak");
+Console.WriteLine(containsNowak); // True
+
+			//IndexOf
+			string sentence = "Franciszek Nowak";
+int index = sentence.IndexOf("Nowak");
+Console.WriteLine(index); // 10
+
+
+			
 			
 			Console.ReadKey();
         }
