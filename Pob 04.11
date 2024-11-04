@@ -125,6 +125,9 @@ internal class Program
             {
                 Console.WriteLine("Wprowadź poprawną liczbę dodatnią.");
             }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Nieprawidłowa wartość. Spróbuj ponownie");
+            Console.ResetColor();
         }
     }
 }
