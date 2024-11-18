@@ -2,3 +2,4 @@ tworzenie nowego projektu .NET (z klawiatury)  dotnet new console -n MyConsoleAp
 wyjątki TryCatch
 suffix
 GetPositiveNumber
+najnowsza versja visual studio
