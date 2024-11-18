@@ -3,3 +3,184 @@ wyjątki TryCatch
 suffix
 GetPositiveNumber
 najnowsza versja visual studio
+
+Zadanie: Kalkulator czasu podróży
+1. Uruchomienie programu:
+ Program uruchamia się w pętli nieskończonej, wyświetlając menu z opcjami do wyboru.
+ Użytkownik może wybrać jedną z opcji: obliczenie czasu podróży samochodem, rowerem, pieszo lub
+zakończenie programu.
+2. Opcje menu:
+ Opcja 1: Obliczenie czasu podróży samochodem.
+ Opcja 2: Obliczenie czasu podróży rowerem.
+ Opcja 3: Obliczenie czasu podróży pieszo.
+ Opcja 4: Zakończenie programu.
+3. Obliczenia:
+ Samochód:
+ Pobierz odległość i prędkość od użytkownika.
+ Oblicz czas podróży (distance / speed).
+ Wyświetl wynik.
+ Rower:
+ Pobierz odległość i prędkość od użytkownika.
+ Oblicz czas podróży (distance / speed).
+ Wyświetl wynik.
+ Pieszo:
+ Pobierz odległość i prędkość od użytkownika.
+ Oblicz czas podróży (distance / speed).
+ Wyświetl wynik.
+4. Walidacja danych:
+ Program sprawdza, czy wprowadzone wartości są dodatnie i czy są liczbami całkowitymi.
+ W przypadku błędnych danych, użytkownik jest proszony o ponowne wprowadzenie wartości.
+ Funkcja GetPositiveNumber dodatkowo sprawdza, czy wprowadzona wartość jest liczbą całkowitą
+oraz obsługuje wyjątek OverflowException.
+5. Obsługa wyjątków:
+ Program zawiera funkcje do dzielenia z obsługą wyjątków.
+ Dzielenie:
+ Funkcja Divide sprawdza, czy dzielnik nie jest zerem. W przypadku dzielenia przez zero,
+rzucany jest wyjątek DivideByZeroException.
+ Jeśli zarówno dzielna, jak i dzielnik są zerami, rzucany jest
+wyjątek InvalidOperationException.
+6. Dodatkowe obliczenia:
+ Samochód, rower, pieszo:
+ Funkcja CalculateTravelTime sprawdza, czy odległość i prędkość są większe od zera. W
+przypadku wartości mniejszych lub równych zeru, rzucany jest
+wyjątek ArgumentOutOfRangeException.
+7. Wyświetlanie błędów:
+ Funkcja DisplayError wyświetla komunikaty błędów w różnych kolorach w zależności od typu
+wyjątku:
+ Czerwony dla ArgumentOutOfRangeException.
+ Żółty dla FormatException.
+ Magenta dla innych wyjątków.
+8. Przykładowe działanie programu:
+ Użytkownik wprowadza odległość i prędkość.
+ Program oblicza czas podróży na podstawie wprowadzonych danych.
+ Wyniki są wyświetlane na ekranie.
+ W przypadku wystąpienia błędów, odpowiednie komunikaty są wyświetlane.
+Przykłady wprowadzenia danych:
+ Prawidłowe wprowadzenie danych:
+ Odległość: 150 (km)
+ Prędkość: 75 (km/h)
+ Wynik: Czas podróży: 2 godziny
+ Błędne wprowadzenie danych:
+ Odległość: -150 (km)
+ Komunikat: Błąd: Odległość musi być większa od zera (wyświetlany na czerwono)
+ Prędkość: 0 (km/h)
+ Komunikat: Błąd: Prędkość musi być większa od zera (wyświetlany na czerwono)
+ Odległość: 150 (km), Prędkość: "abc"
+ Komunikat: Błąd: Nieprawidłowy format liczby (wyświetlany na żółto)
+Przykłady komunikatów błędów:
+ ArgumentOutOfRangeException:
+ Komunikat: Błąd: Odległość musi być większa od zera (wyświetlany na czerwono)
+ Komunikat: Błąd: Prędkość musi być większa od zera (wyświetlany na czerwono)
+ FormatException:
+ Komunikat: Błąd: Nieprawidłowy format liczby (wyświetlany na żółto)
+ Inne wyjątki:
+ Komunikat: Nieoczekiwany błąd: [opis błędu] (wyświetlany na magenta)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool Kontynuacja = true;
+            while (Kontynuacja)
+            {
+                Console.WriteLine("1. Obliczenie czasu podróży samochodem.");
+                Console.WriteLine("2. Obliczenie czasu podróży rowerem");
+                Console.WriteLine("3. Obliczenie czasu podróży pieszo");
+                Console.WriteLine("4. Zakończenie programu");
+                Console.Write("Wybierz jedną opcje: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        CalculateTravelTime("samochodem");
+                        break;
+                    case "2":
+                        CalculateTravelTime("rowerem");
+                        break;
+                    case "3":
+                        CalculateTravelTime("pieszo");
+                        break;
+                    case "4":
+                        Console.WriteLine("Zakończenie programu.");
+                        return;
+                    default:
+                        Console.WriteLine("Błędny wybór, spróbuj ponownie.");
+                        break;
+                }
+
+            }
+        }
+        static void CalculateTravelTime(string mode)
+        {
+            Console.WriteLine($"\nObliczanie czasu podróży {mode}:");
+            double distance = GetPositiveNumber("Wprowadź odległość: ");
+            double speed = GetPositiveNumber("Wprowadź prędkość: ");
+            double travelTime = Divide(distance, speed);
+            Console.WriteLine($"Czas podróży {mode}: {travelTime} godziny");
+
+
+        }
+        static double GetPositiveNumber(string prompt)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write(prompt);
+                    string input = Console.ReadLine();
+                    double number = double.Parse(input);
+
+                    if (number <= 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+
+                    return number;
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Błąd: Nieprawidłowy format liczby.");
+                    Console.ResetColor();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Błąd: Odległość i prędkość muszą być większe od zera.");
+                    Console.ResetColor();
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Błąd: Wartość jest zbyt duża.");
+                    Console.ResetColor();
+                }
+            }
+
+        }
+        static double Divide(double dividend, double divisor)
+        {
+            if (dividend == 0 && divisor == 0)
+                {
+                    Console.WriteLine("Nie można dzielić przez zero, gdy oba argumenty są zerami.");
+                }
+
+                if (divisor == 0)
+                {
+                    throw new DivideByZeroException("Błąd: Dzielnik nie może być zerem.");
+                }
+
+                return dividend / divisor;
+        }
+    }
+    
+}
