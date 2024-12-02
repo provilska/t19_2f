@@ -1,1 +1,204 @@
+using System;
 
+namespace _6_3_tablice_jednowymiarowe_wielowymiarowe
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = null;
+            int[,] multiArray = null;
+            bool exit = false;
+
+            while (!exit)
+            {
+                DisplayMenu();
+                Console.Write("Twój wybór: ");
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        array = CreateArray();
+                        break;
+                    case 2:
+                        if (array != null)
+                        {
+                            FillArrayRandomly(array);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Najpierw musisz utworzyć tablicę.");
+                        }
+                        break;
+                    case 3:
+                        if (array != null)
+                        {
+                            FillArrayManualy(array);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Najpierw musisz utworzyć tablicę.");
+                        }
+                        break;
+                    case 4:
+                        if (array != null)
+                        {
+                            DisplayArray(array);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Tablica jest pusta.");
+                        }
+                        break;
+                    case 5:
+                        if (array != null)
+                        {
+                            SortArrayAscending(array);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Najpierw musisz utworzyć tablicę.");
+                        }
+                        break;
+                    case 6:
+                        if (array != null)
+                        {
+                            SortArrayDescending(array);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Najpierw musisz utworzyć tablicę.");
+                        }
+                        break;
+                    case 7:
+                        multiArray = CreateMultiArray();
+                        break;
+                    case 8:
+                        if (multiArray != null)
+                        {
+                            DisplayMultiArray(multiArray);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Najpierw utwórz tablicę wielowymiarową");
+                        }
+                        break;
+                    case 9:
+                        exit = true;
+                        Console.WriteLine("Program zakończony.");
+                        break;
+                    default:
+                        Console.WriteLine("Nieprawidłowy wybór, spróbuj ponownie.");
+                        break;
+                }
+            }
+        }
+
+        // Funkcja statyczna do tworzenia tablicy
+        static int[] CreateArray()
+        {
+            Console.Write("Podaj rozmiar tablicy: ");
+            int size = int.Parse(Console.ReadLine());
+            return new int[size];
+        }
+
+        // Funkcja statyczna do losowego wypełniania tablicy
+        static void FillArrayRandomly(int[] array)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = rnd.Next(1, 101); // Liczby od 1 do 100
+            }
+            Console.WriteLine("Tablica została wypełniona losowymi wartościami.");
+        }
+
+        // Funkcja do ręcznego wypełniania tablicy
+        static void FillArrayManualy(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"Podaj wartość dla elementu {i + 1}: ");
+                array[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("Tablica została wypełniona wartościami podanymi przez użytkownika.");
+        }
+
+        // Funkcja do wyświetlania tablicy
+        static void DisplayArray(int[] array)
+        {
+            Console.WriteLine("Zawartość tablicy:");
+            foreach (int element in array)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+        }
+
+        // Funkcja do wyświetlania menu
+        static void DisplayMenu()
+        {
+            Console.WriteLine("\nMenu:");
+            Console.WriteLine("1. Utwórz tablicę jednowymiarową");
+            Console.WriteLine("2. Losuj zawartość tablicy jednowymiarowej");
+            Console.WriteLine("3. Dodaj wartości do tablicy jednowymiarowej");
+            Console.WriteLine("4. Wyświetl tablicę jednowymiarową");
+            Console.WriteLine("5. Sortuj tablicę jednowymiarową niemalejąco");
+            Console.WriteLine("6. Sortuj tablicę jednowymiarową nierosnąco");
+            Console.WriteLine("7. Utwórz tablicę wielowymiarową");
+            Console.WriteLine("8. Wyświetl tablicę wielowymiarową");
+            Console.WriteLine("9. Wyjdź");
+        }
+
+        // Funkcja statyczna do sortowania tablicy rosnąco
+        static void SortArrayAscending(int[] array)
+        {
+            Array.Sort(array);
+            Console.WriteLine("Tablica została posortowana rosnąco.");
+        }
+
+        // Funkcja statyczna do sortowania tablicy malejąco
+        static void SortArrayDescending(int[] array)
+        {
+            Array.Sort(array);  // Sortowanie rosnąco
+            Array.Reverse(array);  // Odwrócenie tablicy, aby uzyskać malejąco
+            Console.WriteLine("Tablica została posortowana malejąco.");
+        }
+
+        //funkcja statyczna do tworzenia tablicy wielowymiarowej
+        static int[,] CreateMultiArray()
+        {
+            Console.Write("Podaj liczbę wierszy: ");
+            int rows = int.Parse(Console.ReadLine());
+
+            Console.Write("Podaj liczbę kolumn: ");
+            int cols = int.Parse(Console.ReadLine());
+    
+            int[,] multiArray = new int[rows, cols];
+
+            Random random = new Random();
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    multiArray[i, j] = random.Next(1, 101);
+                }
+            }
+            Console.WriteLine("Tablica wielowymiarowa została utworzona i wypełniona losowymi wartościami");
+            return multiArray;
+        }
+
+        static void DisplayMultiArray(int[,] multiArray)
+        {
+            for(int i = 0;i < multiArray.GetLength(0); i++)
+            {
+                for(int j = 0; j < multiArray.GetLength(1); j++)
+                {
+                    Console.Write($"{multiArray[i,j], 4}");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
