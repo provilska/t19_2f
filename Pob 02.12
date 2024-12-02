@@ -1,1 +1,59 @@
+#listy, tablice jednowymiarowe
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _6_1_tablice_jednowymiarowe
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Pobranie rozmiaru tablicy od użytkownika
+            Console.Write("Podaj rozmiar tablicy: ");
+            int size = int.Parse(Console.ReadLine());
+
+            // Wywołanie funkcji do tworzenia tablicy
+            int[] array = CreateArray(size);
+
+            // Pytanie o chęć wyświetlenia tablicy
+            Console.Write("Czy chcesz wyświetlić tablicę? (tak/nie): ");
+            string response = Console.ReadLine().ToLower();
+
+            // Sprawdzanie odpowiedzi użytkownika
+            if (response == "tak")
+            {
+                DisplayArray(array);
+            }
+            else
+            {
+                Console.WriteLine("Zawartość tablicy nie została wyświetlona");
+            }
+        }
+
+        // Funkcja do tworzenia tablicy z losowymi liczbami
+        static int[] CreateArray(int size)
+        {
+            int[] array = new int[size];
+            Random rnd = new Random();
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = rnd.Next(1, 101); // Liczby od 1 do 100
+            }
+            return array;
+        }
+
+        // Funkcja do wyświetlania tablicy
+        static void DisplayArray(int[] array)
+        {
+            foreach (int element in array)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
