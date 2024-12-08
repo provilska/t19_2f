@@ -160,6 +160,121 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+namespace ConsoleApp3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool exit = true;
+            while (exit) {
+                Console.WriteLine("1. Obliczenie czasu podróży samochodem.");
+                Console.WriteLine("2. Obliczenie czasu podróży rowerem.");
+                Console.WriteLine("3. Obliczenie czasu podróży pieszo.");
+                Console.WriteLine("4. Zakończenie programu.");
+                Console.WriteLine("Wybierz jedną opcje: ");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        CalculateTravelTime("samochodem");
+                        break;
+                    case "2":
+                        CalculateTravelTime("rowerem");
+                        break;
+                    case "3":
+                        CalculateTravelTime("pieszo");
+                        break;
+                    case "4":
+                        exit=false;
+                        Console.WriteLine("Zakończenie programu");
+                        break;
+                    default:
+                        Console.WriteLine("Wybierz poprawną opcje");
+                        break;
+                }
+            }
+
+        }
+        static void CalculateTravelTime(string mode)
+        {
+            Console.WriteLine($"Obliczanie czasu podróży dla {mode}");
+            double distance = GetPositiveNumber("Podaj odległość: ");
+            double speed = GetPositiveNumber("Podaj prędkość: ");
+
+            double travelTime = Divide(distance, speed);
+
+            Console.WriteLine($"Czas podróży {mode} wynosi: {travelTime} godziny");
+        }
+        static double GetPositiveNumber(string prompt)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write(prompt);
+                    string input = Console.ReadLine();
+                    double number = double.Parse(input);
+
+                    if (number <= 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    return number;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Wprowadzone dane nie mogą byc mniejsze lub równać się zeru");
+                    Console.ResetColor();
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Nieprawidłowy format danych");
+                    Console.ResetColor();
+                }
+                catch (OverflowException ex)
+                {
+                    DisplayError(ex);
+                }
+            }
+        }
+        private static double Divide(double distance, double speed)
+        {
+            if (distance == 0 && speed == 0)
+            {
+                throw new InvalidOperationException("Obydwa parametry nie mogą być zerami");
+            }
+
+            if (speed == 0)
+            {
+                throw new DivideByZeroException("Nie można dzielić przez zero");
+            }
+            return distance / speed;
+           
+        }
+        private static void DisplayError(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"Nieoczekiwany błąd: {ex.Message}");
+            Console.ResetColor();
+        }
+    }
+}
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace ConsoleApp4
 {
     internal class Program
