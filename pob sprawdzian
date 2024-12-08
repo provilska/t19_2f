@@ -75,6 +75,217 @@ Przykłady komunikatów błędów:
  Komunikat: Nieoczekiwany błąd: [opis błędu] (wyświetlany na magenta)
 
 
+using System;
+using System.Globalization;
+
+namespace Calculation_BMI
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool exit = true;
+            while (exit)
+            {
+                Console.WriteLine("1. Obliczenie BMI dla dorosłych.");
+                Console.WriteLine("2. Obliczenie BMI dla dzieci.");
+                Console.WriteLine("3. Obliczenie BMI dla młodzieży.");
+                Console.WriteLine("4. Zakończenie programu.");
+                Console.WriteLine("Wybierz jedną opcje: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        CalculateBMI("dla dorosłych");
+                        break;
+                    case "2":
+                        CalculateBMIChild("dla dzieci");
+                        break;
+                    case "3":
+                        CalculateBMITeenager("dla młodzieży");
+                        break;
+                    case "4":
+                        exit = false;
+                        break;
+                    default:
+                        Console.WriteLine("Wybierz jedną opcje");
+                        break;
+                }
+            }
+        }
+
+        private static void CalculateBMI(string mode)
+        {
+            try
+            {
+                Console.WriteLine($"Obliczanie BMI dla {mode}");
+                double weight = GetPositiveNumber("Podaj wagę (kg): ");
+                double height = GetPositiveNumber("Podaj wzrost (m): ");
+
+                double calculateBMI = Divide(weight, height);
+
+                InterpretBMI(calculateBMI, mode);
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
+
+        private static void CalculateBMIChild(string mode)
+        {
+            try
+            {
+                Console.WriteLine($"Obliczanie BMI dla {mode}");
+                double weight = GetPositiveNumber("Podaj wagę (kg): ");
+                double height = GetPositiveNumber("Podaj wzrost (m): ");
+                double age = GetPositiveNumber("Podaj wiek (lata): ");
+
+                double calculateBMI = Divide(weight, height);
+
+                InterpretBMIForChild(calculateBMI, age, mode);
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
+
+        private static void CalculateBMITeenager(string mode)
+        {
+            try
+            {
+                Console.WriteLine($"Obliczanie BMI dla {mode}");
+                double weight = GetPositiveNumber("Podaj wagę (kg): ");
+                double height = GetPositiveNumber("Podaj wzrost (m): ");
+                double age = GetPositiveNumber("Podaj wiek (lata): ");
+
+                double calculateBMI = Divide(weight, height);
+
+                InterpretBMIForTeenager(calculateBMI, age, mode);
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
+
+        private static void InterpretBMI(double calculateBMI, string mode)
+        {
+            if (calculateBMI < 18.5)
+            {
+                Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Niedowaga)");
+            }
+            else if (calculateBMI >= 18.5 && calculateBMI < 25)
+            {
+                Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Waga prawidłowa)");
+            }
+            else if (calculateBMI >= 25 && calculateBMI < 30)
+            {
+                Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Nadwaga)");
+            }
+            else
+            {
+                Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Otyłość)");
+            }
+        }
+
+        private static void InterpretBMIForChild(double calculateBMI, double age, string mode)
+        {
+            if (age <= 2)
+            {
+                Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Wartości referencyjne zależne od wieku)");
+            }
+            else if (age <= 18)
+            {
+                if (calculateBMI < 5)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Niedowaga)");
+                else if (calculateBMI < 85)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Waga prawidłowa)");
+                else if (calculateBMI < 95)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Nadwaga)");
+                else
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Otyłość)");
+            }
+        }
+
+        private static void InterpretBMIForTeenager(double calculateBMI, double age, string mode)
+        {
+            if (age >= 13 && age < 18)
+            {
+                if (calculateBMI < 18.5)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Niedowaga)");
+                else if (calculateBMI >= 18.5 && calculateBMI < 25)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Waga prawidłowa)");
+                else if (calculateBMI >= 25 && calculateBMI < 30)
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Nadwaga)");
+                else
+                    Console.WriteLine($"BMI {mode} wynosi: {calculateBMI:F2} (Otyłość)");
+            }
+        }
+
+        private static double Divide(double weight, double height)
+        {
+            if (height == 0)
+            {
+                throw new DivideByZeroException("Wzrost nie może wynosić zero");
+            }
+            if (height <= 0 || weight <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"Waga i wzrost muszą być większe od zera");
+            }
+            return weight / (height * height);
+        }
+
+        static double GetPositiveNumber(string prompt)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write(prompt);
+                    string input = Console.ReadLine();
+                    input = input.Replace(',', '.');
+                    double number = double.Parse(input, CultureInfo.InvariantCulture);
+                    if (number > 0)
+                    {
+                        return number;
+                    }
+
+                    throw new ArgumentOutOfRangeException();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Błąd: {prompt} musi być większa od zera");
+                    Console.ResetColor();
+                }
+ 
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Błąd: Nieprawidłowy format liczby");
+                    Console.ResetColor();
+                }
+                catch (OverflowException ex)
+                {
+                    DisplayError(ex);
+                }
+            }
+        }
+
+        static void DisplayError(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"Nieoczekiwany błąd: {ex.Message}");
+            Console.ResetColor();
+        }
+    }
+}
+
+
 ----------------------------------------------
 tworzenie nowego projektu .NET (z klawiatury)  dotnet new console -n MyConsoleApp
 wyjątki TryCatch
