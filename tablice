@@ -140,3 +140,167 @@ static void DisplayMultiArray(int [,]MultiArray)
         Console.WriteLine();
     }
 }
+
+
+using System.ComponentModel.Design;
+
+namespace ConsoleApp9
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = null;
+            int[,] multiArray = null;
+            bool exit = false;
+            while (!exit)
+            {
+                DisplayMenu();
+                Console.Write("Twój wybór:");
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        array = CreateArray();
+                        break;
+                    case 2:
+                        if (array != null) FillArrayRandom(array);
+                        else Console.WriteLine("Najpierw utwórz tablicę wybierając opcję 1");
+                        break;
+                    case 3:
+                        if (array != null) FillArrayManualy(array);
+                        else Console.WriteLine("Najpierw utwórz tablicę wybierając opcję 1");
+                        break;
+                    case 4:
+                        if (array != null) DisplayArray(array);
+                        else Console.WriteLine("Najpierw utwórz tablicę wybierając opcję 1");
+                        break;
+                    case 5:
+                        if (array != null) SortArrayAscending(array);
+                        else Console.WriteLine("Najpierw utwórz tablicę wybierając opcję 1");
+                        break;
+                    case 6:
+                        if (array != null) SortArrayDescending(array);
+                        else Console.WriteLine("Najpierw utwórz tablicę wybierając opcję 1");
+                        break;
+                    case 7: multiArray = CreateMultiArray();
+                        break;
+                    case 8:
+                        if (multiArray != null) DisplayMultiArray(multiArray);
+                        else Console.WriteLine("Najpierw stwórz tablicę wybierając opcję 7");
+                        break;
+                    case 9:
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Podano błędną wartość");
+                        break;
+                }
+
+            }
+
+        }
+        //funckja statyczna do tworzenia tablicy
+        //?????????????????????
+        static int[] CreateArray()
+        {
+            Console.WriteLine("Podaj rozmiar tablicy");
+            int size = int.Parse(Console.ReadLine());
+            return new int[size];
+        }
+
+        //funckja statyczna do tworzenia tablicy
+        static void FillArrayManualy(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"Podaj wartość dla elementu {i + 1}:");
+                array[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("Tablica została uzupełniona wartościami podanymi przez użytkownika");
+        }
+
+        //funckja statyczna do losowego wypełniania tablicy
+
+        static void FillArrayRandom(int[] array)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < array.Length; i++) array[i] = rnd.Next(1, 101);
+            Console.WriteLine("Tablica została wypełniona losowymi wartościami");
+        }
+
+        //funckja statyczna do wyświetlania zawartości tablicy
+        static void DisplayArray(int[] array)
+        {
+            foreach (int element in array) Console.Write(element + " ");
+            Console.WriteLine();
+        }
+
+        //funckaj statyczna do wyświetlania menu
+        static void DisplayMenu()
+        {
+            Console.WriteLine("Menu");
+            Console.WriteLine("1. Stwórz tablicę jednowymiarową");
+            Console.WriteLine("2. Losuj zawartość tablicy jednowymiarowej");
+            Console.WriteLine("3. Dodaj wartości do tablicy jednowymiarowej");
+            Console.WriteLine("4. Wyświetl tablicę jednowymiarową");
+            Console.WriteLine("5. Posortuj tablicę niemalejąco jednowymiarową");
+            Console.WriteLine("6. Posortuj tablicę nierosnąco jednowymiarową");
+            Console.WriteLine("7. Stwórz tablicę wielowymiarową");
+            Console.WriteLine("8. Wyświetl tablicę wielowymiarową");
+            Console.WriteLine("9. Wyjdź");
+
+        }
+
+        //Funkcja do sortowania tablicy niemalejąco
+        static void SortArrayAscending(int[] array)
+        {
+            Array.Sort(array);
+            Console.WriteLine("Tablica została posortowana niemalejąco");
+        }
+
+
+        //Funckja do sortowania tablicy nierosnąco
+
+        static void SortArrayDescending(int[] array)
+        {
+            Array.Sort(array);
+            Array.Reverse(array);
+            Console.WriteLine("Tablica została posortowana nierosnąco");
+        }
+
+        //Funkcja do tworzenia tablicy wymiarowej
+        static int[,] CreateMultiArray()
+        {
+            Console.Write("Podaj liczbę wierszy:");
+            int rows = int.Parse(Console.ReadLine());
+            Console.Write("Podaj liczbę kolumn:");
+            int cols = int.Parse(Console.ReadLine());
+            int[,] multiArray = new int[rows, cols];
+            Random rnd = new Random();
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    multiArray[y, x] = rnd.Next(1, 101);
+                }
+            }
+            Console.WriteLine("Tablica wielowymiarowa została utworzona i wypełniona losowymi wartościami");
+            return multiArray;
+        }
+
+        static void DisplayMultiArray(int[,] multiArray)
+        {
+            for (int y = 0; y < multiArray.GetLength(0); y++)
+            {
+                for (int x = 0; x < multiArray.GetLength(1); x++)
+                {
+                    Console.Write(multiArray[y,x] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+    }
+}
