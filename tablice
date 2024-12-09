@@ -1,0 +1,142 @@
+using System.Linq.Expressions;
+int[] array = null;
+int[,] multiarray = null;
+bool exit = false;
+while (!exit)
+{
+    DisplayMenu();
+    Console.WriteLine("Twój wybór:");
+    int choice = int.Parse(Console.ReadLine());
+
+    switch (choice)
+    {
+        case 1:
+            array = CreateArray();
+                ; break;
+        case 2:
+            if (array != null)
+            {
+                FillArrayRandomly(array);
+            };break;
+        case 3:
+            if (array != null)
+            {
+                FillArrayManualy(array);
+            };break;
+        case 4:
+            if (array != null)
+            {
+                DisplayArray(array);
+            }
+            else { Console.WriteLine("Tablica jest pusta"); }; break;
+        case 5:
+            SortArrayAscending(array);
+            break;
+        case 6:
+            SortArrayDescending(array);
+            break;
+        case 7:
+            CreateMultiArray();
+            break;
+        case 8:
+            if (array != null)
+            {
+                DisplayMultiArray(multiarray);
+            }
+            else { Console.WriteLine("Tablica wielowymiarowa jest pusta"); }; break;
+        case 9:
+            exit = true;
+            break;
+    }
+
+}
+
+static void SortArrayDescending(int[]array)
+{
+    Array.Sort(array);
+    Console.WriteLine("Tablica została posortowana niemalejąco");
+}
+
+static void SortArrayAscending(int[]array)
+{
+    Array.Sort(array);
+    Array.Reverse(array);
+    Console.WriteLine("Tablica została posortowana nierosnąco");
+}
+
+void FillArrayManualy(int[]array)
+{
+    for(int i = 0; i < array.Length; i++)
+    {
+        Console.WriteLine($"Podaj wartość dla elementu {i+1}:");
+        array[i] = int.Parse(Console.ReadLine());
+    }
+}
+
+static void FillArrayRandomly(int[]array)
+{
+    
+    Random random = new Random();
+    for(int i = 0; i <array.Length;i++)
+    {
+        array[i]=random.Next(1,101);
+    }
+    Console.WriteLine("Tablica zostala wypełniona losowymi wartościami");
+}
+static int[] CreateArray()
+{
+    Console.WriteLine("Podaj rozmiar tablicy:");
+    int size = int.Parse(Console.ReadLine());
+    return new int[size];
+}
+
+static void DisplayArray(int[]array)
+{
+    foreach(int e in array)
+    {
+        Console.Write($"{e} ");
+    }
+}
+
+static void DisplayMenu()
+{
+    Console.WriteLine("Menu");
+    Console.WriteLine("1.Utwórz tablicę jednowymiarową");
+    Console.WriteLine("2.Losuj zawartość tablicy jednowymiarowej");
+    Console.WriteLine("3.Dodaj wartości tablicy jednowymiarowej");
+    Console.WriteLine("4.Wyświetl tablicę jednowymiarową");
+    Console.WriteLine("5.Sortuj tablicę jednowymiarową niemalejąco");
+    Console.WriteLine("6.Sortuj tablicę jednowymiarową nierosnąco");
+    Console.WriteLine("7.Utwórz tablicę wielowymiarową");
+    Console.WriteLine("8.Wyświetl tablicę wielowymiarową");
+    Console.WriteLine("9.Wyjdź");
+}
+static int[,] CreateMultiArray()
+{
+    Console.WriteLine("Podaj ilość wierszy:");
+    int rows = int.Parse(Console.ReadLine());
+    Console.WriteLine("Podaj ilość kolumn:");
+    int cols = int.Parse(Console.ReadLine());
+    int[,] MultiArray = new int[rows,cols];
+    Random r = new Random();
+    for (int i = 0; i < MultiArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < MultiArray.GetLength(1); j++)
+        {
+            MultiArray[rows,cols] = r.Next(1, 101);
+        }
+    }
+    Console.WriteLine("Tablica została wypełniona losowymi wartościami");
+    return MultiArray;
+}
+static void DisplayMultiArray(int [,]MultiArray)
+{
+    for(int i = 0; i < MultiArray.GetLength(0); i++)
+    {
+        for(int j = 0; j < MultiArray.GetLength(1); j++)
+        {
+            Console.Write($"{MultiArray[i,j]}   ");
+        }
+        Console.WriteLine();
+    }
+}
