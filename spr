@@ -294,6 +294,64 @@ public class Tournament
         tournament.MainMenu();
     }
 }
+Twoim zadaniem jest napisanie programu konsolowego w C#, który będzie zarządzał turniejem esportowym. Program powinien obsługiwać graczy, drużyny oraz rozgrywki. Należy zaimplementować
+menu, które umożliwi użytkownikowi wykonywanie różnych operacji na danych.
+Zadanie zostało utrudnione poprzez dodanie nowych funkcjonalności:
+ Historia meczów między drużynami.
+ Ranking drużyn na podstawie liczby wygranych meczów.
+ Automatyczne generowanie turniejowej drabinki i symulacja wyników.
+ Drużyny mogą zostać rozwiązane, a ich gracze wracają do puli wolnych zawodników.
+ Możliwość edycji danych graczy (np. zmiana drużyny, wieku itp.).
+Wymagania funkcjonalne:
+1. Definicja enum dla gatunków gier:
+o FPS, MOBA, BattleRoyale, RTS, RPG, Sportowe.
+2. Struktura danych dla graczy:
+o Każdy gracz ma:
+ imię
+ nazwisko
+ wiek
+ drużynę (lub informację, że nie należy do żadnej)
+ gatunek gry
+ liczbę punktów rankingowych
+3. Struktura danych dla drużyn:
+o Drużyna posiada:
+ nazwę
+ listę graczy
+ łączną liczbę punktów rankingowych
+ liczbę wygranych meczów
+o Drużyna może liczyć maksymalnie 5 graczy.
+4. Struktura danych dla historii meczów:
+o Każdy mecz zawiera:
+ Nazwy drużyn, które ze sobą rywalizowały
+ Zwycięzcę meczu
+ Datę meczu
+Funkcjonalność programu:
+1. Wyświetlanie menu z dostępnymi opcjami.
+2. Dodawanie nowego gracza do systemu.
+3. Tworzenie nowej drużyny.
+4. Przypisywanie gracza do drużyny (jeśli drużyna nie ma jeszcze 5 członków).
+5. Usuwanie gracza z drużyny.
+6. Rozwiązanie drużyny (wszyscy gracze wracają do puli wolnych zawodników).
+7. Edycja danych gracza (zmiana drużyny, wieku, punktów rankingowych).
+8. Przeglądanie graczy według gatunku gry.
+9. Przeglądanie drużyn i ich składu.
+10. Rozgrywanie meczu między dwiema drużynami:
+o Zwycięska drużyna dostaje +10 punktów do rankingu.
+o Przegrana drużyna traci 5 punktów.
+o Wynik meczu jest zapisywany w historii meczów.
+11. Wyświetlanie historii meczów.
+12. Ranking drużyn na podstawie liczby wygranych meczów.
+13. Automatyczne generowanie turniejowej drabinki dla 4 lub 8 drużyn i symulacja wyników.
+14. Wyszukiwanie gracza po nazwisku.
+15. Wyjście z programu.
+Dodatkowe wymagania:
+ Program nie używa klas, jedynie tablic, list i słowników.
+ Kod powinien mieć około 300 linii.
+ Zaawansowane operacje na strukturach danych, takich jak listy i słowniki.
+ Walidacja danych wejściowych użytkownika (np. sprawdzanie poprawności liczby graczy w 
+drużynie)
+
+
 System zarządzania drużynami sportowymi w C#
 Napisz program w języku C#, który zarządza danymi sportowymi, wykorzystując tablice, listy, słowniki oraz typ
 wyliczeniowy (enum). Program powinien zawierać menu tekstowe, umożliwiające użytkownikowi interakcję z
