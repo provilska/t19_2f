@@ -1,299 +1,303 @@
 using System;
 using System.Collections.Generic;
 
-public enum GameGenre
+namespace SofiaProvilska
 {
-    FPS,
-    MOBA,
-    BattleRoyale,
-    RTS,
-    RPG,
-    Sportowe
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Słowniki do przechowywania graczy i drużyn
+            Dictionary<string, List<string>> players = new Dictionary<string, List<string>>(); // Nazwisko -> Lista danych gracza
+            Dictionary<string, List<string>> teams = new Dictionary<string, List<string>>(); // Nazwa drużyny -> Lista nazwisk graczy
+            Dictionary<string, int> teamWins = new Dictionary<string, int>(); // Nazwa drużyny -> Liczba wygranych meczów
+            List<string> matchHistory = new List<string>(); // Historia meczów
+
+            bool exit = true;
+            while (exit)
+            {
+                DisplayMenu();
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        // Dodawanie nowego gracza
+                        Console.WriteLine("Podaj imię nowego gracza:");
+                        string firstName = Console.ReadLine();
+                        Console.WriteLine("Podaj nazwisko gracza: ");
+                        string lastName = Console.ReadLine();
+                        Console.WriteLine("Podaj wiek gracza: ");
+                        int age = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Podaj drużyne gracza: ");
+                        string team = Console.ReadLine();
+                        Console.WriteLine("Podaj gatunek gry gracza: ");
+                        string gameGenre = Console.ReadLine();
+                        Console.WriteLine("Podaj liczbę punktów rankingowych gracza: ");
+                        int score = int.Parse(Console.ReadLine());
+
+                        // Zapisz dane gracza do słownika
+                        players[lastName] = new List<string> { firstName, lastName, age.ToString(), team, gameGenre, score.ToString() };
+                        Console.WriteLine("Dane zostały dodane");
+                        break;
+
+                    case "2":
+                        // Ranking drużyn na podstawie punktów rankingowych graczy
+                        Dictionary<string, int> teamScores = new Dictionary<string, int>();
+
+                        foreach (var player in players.Values)
+                        {
+                            string playerTeam = player[3];
+                            int playerScore = int.Parse(player[5]);
+
+                            if (teamScores.ContainsKey(playerTeam))
+                            {
+                                teamScores[playerTeam] += playerScore;
+                            }
+                            else
+                            {
+                                teamScores[playerTeam] = playerScore;
+                            }
+                        }
+
+                        Console.WriteLine("Ranking drużyn na podstawie punktów:");
+                        foreach (var teamScore in teamScores)
+                        {
+                            Console.WriteLine($"Drużyna: {teamScore.Key}, Punkty: {teamScore.Value}");
+                        }
+                        break;
+
+                    case "3":
+                        // Tworzenie nowej drużyny
+                        Console.WriteLine("Podaj nazwę drużyny: ");
+                        string teamName = Console.ReadLine();
+                        Console.WriteLine("Podaj liczbę graczy drużyny: ");
+                        int teamPlayerCount = int.Parse(Console.ReadLine());
+
+                        List<string> teamPlayers = new List<string>();
+                        for (int i = 0; i < teamPlayerCount; i++)
+                        {
+                            Console.WriteLine($"Podaj nazwisko gracza {i + 1}: ");
+                            string playerLastName = Console.ReadLine();
+
+                            if (players.ContainsKey(playerLastName))
+                            {
+                                teamPlayers.Add(playerLastName);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Gracz o tym nazwisku nie istnieje.");
+                            }
+                        }
+
+                        teams[teamName] = teamPlayers;
+                        teamWins[teamName] = 0; // Inicjalizujemy liczbę wygranych meczów drużyny
+                        Console.WriteLine("Drużyna została utworzona.");
+                        break;
+
+                    case "4":
+                        // Przypisywanie gracza do drużyny
+                        Console.WriteLine("Podaj nazwisko gracza do przypisania do drużyny: ");
+                        string playerName = Console.ReadLine();
+                        Console.WriteLine("Podaj nazwę drużyny: ");
+                        string assignedTeam = Console.ReadLine();
+
+                        if (players.ContainsKey(playerName) && teams.ContainsKey(assignedTeam))
+                        {
+                            teams[assignedTeam].Add(playerName);
+                            Console.WriteLine("Gracz został przypisany do drużyny.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Błąd: Gracz lub drużyna nie istnieje.");
+                        }
+                        break;
+
+                    case "5":
+                        // Usuwanie gracza z drużyny
+                        Console.WriteLine("Podaj nazwisko gracza do usunięcia: ");
+                        string playerToRemove = Console.ReadLine();
+                        Console.WriteLine("Podaj nazwę drużyny: ");
+                        string teamToRemoveFrom = Console.ReadLine();
+
+                        if (teams.ContainsKey(teamToRemoveFrom) && teams[teamToRemoveFrom].Contains(playerToRemove))
+                        {
+                            teams[teamToRemoveFrom].Remove(playerToRemove);
+                            Console.WriteLine("Gracz został usunięty z drużyny.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Gracz nie należy do tej drużyny.");
+                        }
+                        break;
+
+                    case "6":
+                        // Rozwiązanie drużyny
+                        Console.WriteLine("Podaj nazwę drużyny do rozwiązania: ");
+                        string teamToDelete = Console.ReadLine();
+
+                        if (teams.ContainsKey(teamToDelete))
+                        {
+                            teams.Remove(teamToDelete);
+                            Console.WriteLine("Drużyna została rozwiązana.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Drużyna o tej nazwie nie istnieje.");
+                        }
+                        break;
+
+                    case "7":
+                        // Edycja danych gracza
+                        Console.WriteLine("Podaj nazwisko gracza, którego chcesz edytować: ");
+                        string playerToEdit = Console.ReadLine();
+
+                        if (players.ContainsKey(playerToEdit))
+                        {
+                            Console.WriteLine("Podaj nowe imię gracza: ");
+                            players[playerToEdit][0] = Console.ReadLine();
+                            Console.WriteLine("Podaj nowe nazwisko gracza: ");
+                            players[playerToEdit][1] = Console.ReadLine();
+                            Console.WriteLine("Podaj nowy wiek gracza: ");
+                            players[playerToEdit][2] = Console.ReadLine();
+                            Console.WriteLine("Podaj nowy gatunek gry gracza: ");
+                            players[playerToEdit][4] = Console.ReadLine();
+                            Console.WriteLine("Podaj nową liczbę punktów rankingowych gracza: ");
+                            players[playerToEdit][5] = Console.ReadLine();
+
+                            Console.WriteLine("Dane zostały zaktualizowane.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Gracz o tym nazwisku nie istnieje.");
+                        }
+                        break;
+
+                    case "8":
+                        // Przeglądanie graczy według gatunku gry
+                        Console.WriteLine("Podaj gatunek gry: ");
+                        string genre = Console.ReadLine();
+
+                        Console.WriteLine($"Gracze w gatunku {genre}:");
+                        foreach (var player in players)
+                        {
+                            if (player.Value[4].ToLower() == genre.ToLower())
+                            {
+                                Console.WriteLine($"{player.Value[0]} {player.Value[1]}");
+                            }
+                        }
+                        break;
+
+                    case "9":
+                        // Przeglądanie drużyn i ich składu
+                        Console.WriteLine("Drużyny i ich skład:");
+                        foreach (var teamIn in teams)
+                        {
+                            Console.WriteLine($"Drużyna: {teamIn.Key}");
+                            Console.WriteLine("Gracze:");
+                            foreach (var playerInTeam in teamIn.Value)
+                            {
+                                Console.WriteLine(playerInTeam);
+                            }
+                        }
+                        break;
+
+                    case "10":
+                        // Rozgrywanie meczu
+                        Console.WriteLine("Podaj nazwę pierwszej drużyny: ");
+                        string team1 = Console.ReadLine();
+                        Console.WriteLine("Podaj nazwę drugiej drużyny: ");
+                        string team2 = Console.ReadLine();
+
+                        if (teams.ContainsKey(team1) && teams.ContainsKey(team2))
+                        {
+                            Console.WriteLine("Wybierz zwycięzcę: 1 - " + team1 + ", 2 - " + team2);
+                            string winner = Console.ReadLine();
+
+                            if (winner == "1")
+                            {
+                                teamWins[team1]++;
+                                matchHistory.Add($"{team1} wygrało z {team2}");
+                            }
+                            else if (winner == "2")
+                            {
+                                teamWins[team2]++;
+                                matchHistory.Add($"{team2} wygrało z {team1}");
+                            }
+
+                            Console.WriteLine("Mecz został zakończony.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Jedna z drużyn nie istnieje.");
+                        }
+                        break;
+
+                    case "11":
+                        // Wyświetlanie historii meczów
+                        Console.WriteLine("Historia meczów:");
+                        foreach (var match in matchHistory)
+                        {
+                            Console.WriteLine(match);
+                        }
+                        break;
+
+                    case "12":
+                        // Ranking drużyn na podstawie liczby wygranych meczów
+                        Console.WriteLine("Ranking drużyn na podstawie liczby wygranych meczów:");
+                        foreach (var team in teamWins)
+                        {
+                            Console.WriteLine($"Drużyna: {team.Key}, Wygrane: {team.Value}");
+                        }
+                        break;
+
+                    case "13":
+                        // Wyszukiwanie gracza po nazwisku
+                        Console.WriteLine("Podaj nazwisko gracza, którego chcesz wyszukać: ");
+                        string searchLastName = Console.ReadLine();
+
+                        if (players.ContainsKey(searchLastName))
+                        {
+                            var playerData = players[searchLastName];
+                            Console.WriteLine($"Gracz znaleziony: {playerData[0]} {playerData[1]}, Wiek: {playerData[2]}, Drużyna: {playerData[3]}, Gatunek gry: {playerData[4]}, Punkty rankingowe: {playerData[5]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nie znaleziono gracza o tym nazwisku.");
+                        }
+                        break;
+
+                    case "14":
+                        exit = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Wybierz poprawną opcję");
+                        break;
+                }
+            }
+        }
+
+        static void DisplayMenu()
+        {
+            Console.WriteLine("1. Dodawanie nowego gracza");
+            Console.WriteLine("2. Ranking drużyn ");
+            Console.WriteLine("3. Tworzenie nowej drużyny");
+            Console.WriteLine("4. Przypisywanie gracza do drużyny");
+            Console.WriteLine("5. Usuwanie gracza z drużyny");
+            Console.WriteLine("6. Rozwiązanie drużyny");
+            Console.WriteLine("7. Edycja danych gracza");
+            Console.WriteLine("8. Przeglądanie graczy według gatunku gry.");
+            Console.WriteLine("9. Przeglądanie drużyn i ich składu.");
+            Console.WriteLine("10. Rozgrywanie meczu między dwiema drużynami:");
+            Console.WriteLine("11. Wyświetlanie historii meczów");
+            Console.WriteLine("12. Ranking drużyn na podstawie liczby wygranych meczów.");
+            Console.WriteLine("13. Wyszukiwanie gracza po nazwisku.");
+            Console.WriteLine("14. Wyjście z programu");
+        }
+    }
 }
 
-public class Player
-{
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public int Age { get; set; }
-    public string Team { get; set; } = null;
-    public GameGenre Genre { get; set; }
-    public int RankingPoints { get; set; }
-}
 
-public class Team
-{
-    public string Name { get; set; }
-    public List<Player> Players { get; set; } = new List<Player>();
-    public int TotalRankingPoints { get; set; }
-    public int Wins { get; set; }
-}
-
-public class Match
-{
-    public string Team1 { get; set; }
-    public string Team2 { get; set; }
-    public string Winner { get; set; }
-    public DateTime Date { get; set; }
-}
-
-public class Tournament
-{
-    private List<Player> players = new List<Player>();
-    private List<Team> teams = new List<Team>();
-    private List<Match> matchHistory = new List<Match>();
-
-    public void AddPlayer()
-    {
-        Console.Write("Enter player's first name: ");
-        string firstName = Console.ReadLine();
-        Console.Write("Enter player's last name: ");
-        string lastName = Console.ReadLine();
-        Console.Write("Enter player's age: ");
-        int age = int.Parse(Console.ReadLine());
-        Console.WriteLine("Select game genre:");
-        foreach (var genre in Enum.GetValues(typeof(GameGenre)))
-        {
-            Console.WriteLine($"{(int)genre}. {genre}");
-        }
-        GameGenre genre = (GameGenre)int.Parse(Console.ReadLine());
-
-        players.Add(new Player { FirstName = firstName, LastName = lastName, Age = age, Genre = genre });
-        Console.WriteLine("Player added successfully.");
-    }
-
-    public void CreateTeam()
-    {
-        Console.Write("Enter team name: ");
-        string teamName = Console.ReadLine();
-
-        Team team = new Team { Name = teamName };
-
-        while (team.Players.Count < 5)
-        {
-            Console.WriteLine("Enter player to add to team:");
-            Console.Write("Enter player's first name: ");
-            string firstName = Console.ReadLine();
-            Console.Write("Enter player's last name: ");
-            string lastName = Console.ReadLine();
-
-            Player player = players.Find(p => p.FirstName == firstName && p.LastName == lastName);
-            if (player != null && player.Team == null)
-            {
-                team.Players.Add(player);
-                player.Team = teamName;
-            }
-            else
-            {
-                Console.WriteLine("Player not found or already in a team.");
-            }
-
-            if (team.Players.Count == 5) break;
-        }
-
-        teams.Add(team);
-        Console.WriteLine("Team created successfully.");
-    }
-
-    public void AssignPlayerToTeam()
-    {
-        Console.Write("Enter player's first name: ");
-        string firstName = Console.ReadLine();
-        Console.Write("Enter player's last name: ");
-        string lastName = Console.ReadLine();
-
-        Player player = players.Find(p => p.FirstName == firstName && p.LastName == lastName);
-        if (player != null && player.Team == null)
-        {
-            Console.Write("Enter team name: ");
-            string teamName = Console.ReadLine();
-
-            Team team = teams.Find(t => t.Name == teamName);
-            if (team != null && team.Players.Count < 5)
-            {
-                team.Players.Add(player);
-                player.Team = teamName;
-                Console.WriteLine("Player assigned to team.");
-            }
-            else
-            {
-                Console.WriteLine("Team not found or full.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Player not found or already in a team.");
-        }
-    }
-
-    public void RemovePlayerFromTeam()
-    {
-        Console.Write("Enter player's first name: ");
-        string firstName = Console.ReadLine();
-        Console.Write("Enter player's last name: ");
-        string lastName = Console.ReadLine();
-
-        Player player = players.Find(p => p.FirstName == firstName && p.LastName == lastName);
-        if (player != null && player.Team != null)
-        {
-            Team team = teams.Find(t => t.Name == player.Team);
-            if (team != null)
-            {
-                team.Players.Remove(player);
-                player.Team = null;
-                Console.WriteLine("Player removed from team.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Player not found or not in any team.");
-        }
-    }
-
-    public void PlayMatch()
-    {
-        Console.Write("Enter first team name: ");
-        string team1Name = Console.ReadLine();
-        Console.Write("Enter second team name: ");
-        string team2Name = Console.ReadLine();
-
-        Team team1 = teams.Find(t => t.Name == team1Name);
-        Team team2 = teams.Find(t => t.Name == team2Name);
-
-        if (team1 != null && team2 != null)
-        {
-            Random random = new Random();
-            string winner = random.Next(2) == 0 ? team1.Name : team2.Name;
-
-            if (winner == team1.Name)
-            {
-                team1.TotalRankingPoints += 10;
-                team2.TotalRankingPoints -= 5;
-                team1.Wins++;
-            }
-            else
-            {
-                team2.TotalRankingPoints += 10;
-                team1.TotalRankingPoints -= 5;
-                team2.Wins++;
-            }
-
-            matchHistory.Add(new Match
-            {
-                Team1 = team1Name,
-                Team2 = team2Name,
-                Winner = winner,
-                Date = DateTime.Now
-            });
-
-            Console.WriteLine($"Match finished. Winner: {winner}");
-        }
-        else
-        {
-            Console.WriteLine("One or both teams not found.");
-        }
-    }
-
-    public void ShowMatchHistory()
-    {
-        foreach (var match in matchHistory)
-        {
-            Console.WriteLine($"{match.Date}: {match.Team1} vs {match.Team2} - Winner: {match.Winner}");
-        }
-    }
-
-    public void ShowRanking()
-    {
-        teams.Sort((t1, t2) => t2.Wins.CompareTo(t1.Wins));
-
-        foreach (var team in teams)
-        {
-            Console.WriteLine($"{team.Name}: {team.Wins} wins");
-        }
-    }
-
-    public void EditPlayerData()
-    {
-        Console.Write("Enter player's first name: ");
-        string firstName = Console.ReadLine();
-        Console.Write("Enter player's last name: ");
-        string lastName = Console.ReadLine();
-
-        Player player = players.Find(p => p.FirstName == firstName && p.LastName == lastName);
-        if (player != null)
-        {
-            Console.Write("Enter new age: ");
-            player.Age = int.Parse(Console.ReadLine());
-            Console.Write("Enter new ranking points: ");
-            player.RankingPoints = int.Parse(Console.ReadLine());
-            Console.WriteLine("Player data updated.");
-        }
-        else
-        {
-            Console.WriteLine("Player not found.");
-        }
-    }
-
-    public void ShowPlayersByGenre()
-    {
-        Console.WriteLine("Select game genre:");
-        foreach (var genre in Enum.GetValues(typeof(GameGenre)))
-        {
-            Console.WriteLine($"{(int)genre}. {genre}");
-        }
-
-        GameGenre genreFilter = (GameGenre)int.Parse(Console.ReadLine());
-
-        foreach (var player in players)
-        {
-            if (player.Genre == genreFilter)
-            {
-                Console.WriteLine($"{player.FirstName} {player.LastName}, Age: {player.Age}, Points: {player.RankingPoints}");
-            }
-        }
-    }
-
-    public void MainMenu()
-    {
-        while (true)
-        {
-            Console.WriteLine("\n--- Tournament Management ---");
-            Console.WriteLine("1. Add player");
-            Console.WriteLine("2. Create team");
-            Console.WriteLine("3. Assign player to team");
-            Console.WriteLine("4. Remove player from team");
-            Console.WriteLine("5. Play match");
-            Console.WriteLine("6. Show match history");
-            Console.WriteLine("7. Show team rankings");
-            Console.WriteLine("8. Edit player data");
-            Console.WriteLine("9. Show players by genre");
-            Console.WriteLine("10. Exit");
-            Console.Write("Select an option: ");
-            int option = int.Parse(Console.ReadLine());
-
-            switch (option)
-            {
-                case 1: AddPlayer(); break;
-                case 2: CreateTeam(); break;
-                case 3: AssignPlayerToTeam(); break;
-                case 4: RemovePlayerFromTeam(); break;
-                case 5: PlayMatch(); break;
-                case 6: ShowMatchHistory(); break;
-                case 7: ShowRanking(); break;
-                case 8: EditPlayerData(); break;
-                case 9: ShowPlayersByGenre(); break;
-                case 10: return;
-                default: Console.WriteLine("Invalid option."); break;
-            }
-        }
-    }
-
-    static void Main(string[] args)
-    {
-        Tournament tournament = new Tournament();
-        tournament.MainMenu();
-    }
-}
 Twoim zadaniem jest napisanie programu konsolowego w C#, który będzie zarządzał turniejem esportowym. Program powinien obsługiwać graczy, drużyny oraz rozgrywki. Należy zaimplementować
 menu, które umożliwi użytkownikowi wykonywanie różnych operacji na danych.
 Zadanie zostało utrudnione poprzez dodanie nowych funkcjonalności:
