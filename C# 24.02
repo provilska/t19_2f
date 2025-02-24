@@ -47,13 +47,39 @@ namespace _9_kostruktory
             PersonGender = Gender.Mężczyzna;
         }
 
+        //konstruktor z jednym parametrem 
+        public Person(string firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("Imię nie może być puste");
+            FirstName = firstName;
+            LastName = "Nieznane";
+            DateOfBirth = DateTime.MinValue;
+            PersonGender = Gender.Inna;
+
+            Console.WriteLine("Wyłowano konstruktor z jednym parametrem");
+        }
+        public Person(string firstName, string lastName) : this(firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("Imię nie może być puste");
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("Nazwisko nie może być puste");
+
+            //FirstName = firstName;
+            LastName = lastName;
+           
+
+            Console.WriteLine("Wyłowano konstruktor z dwoma parametrami");
+        }
+
         //konstruktor parametryczny
         public Person(string firstName, string lastName, DateTime dateOfBirth, Gender gender)
         {
             if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
                 throw new ArgumentException("Imię i nazwisko nie mogą być puste");
             if (dateOfBirth > DateTime.Now)
-                throw new ArgumentException();
+                throw new ArgumentException("Data urodzenia nie może być w przyszłości");
            
             FirstName = firstName;
             LastName = lastName;
@@ -114,6 +140,7 @@ namespace _9_kostruktory
                 return null;
             }
 
+
         }
     }
 
@@ -124,28 +151,34 @@ namespace _9_kostruktory
             //tworzenie obiektu klasy Person przy użyciu konstruktora domyślnego
             Person person1 = new Person();
 
-            //tworzenie obiektu klasy Person przy użyciu konstruktora parametrycznego
-            Person person2 = new Person("Janina", "Szyper", new DateTime(1935, 2, 17), Gender.Kobieta);
-            Console.WriteLine(person2.Age);
+            ////tworzenie obiektu klasy Person przy użyciu konstruktora parametrycznego
+            //Person person2 = new Person("Janina", "Szyper", new DateTime(1935, 2, 17), Gender.Kobieta);
+            //Console.WriteLine(person2.Age);
 
-            person1.DisplayInformation();
-            person2.DisplayInformation();
+            //person1.DisplayInformation();
+            //person2.DisplayInformation();
 
-            Console.WriteLine("Imię i nazwisko: " + person2.GetFullName());
-            Console.WriteLine(person2.ToString());
+            //Console.WriteLine("Imię i nazwisko: " + person2.GetFullName());
+            //Console.WriteLine(person2.ToString());
 
-            Person newPerson = Person.InputPersonData();
-            if (newPerson != null)
-            {
-                Console.WriteLine("\nDane osoby:");
-                Console.WriteLine(newPerson.ToString());
-            }
-            else
-            {
-                Console.WriteLine("\nNie udało się utworzyć osoby. Proszę spróbować ponownie");
-            }
+            //Person newPerson = Person.InputPersonData();
+            //if (newPerson != null)
+            //{
+            //    Console.WriteLine("\nDane osoby:");
+            //    Console.WriteLine(newPerson.ToString());
+            //}
+            //else
+            //{
+            //    Console.WriteLine("\nNie udało się utworzyć osoby. Proszę spróbować ponownie");
+            //}
 
+            //tylko imię
+            Person personx = new Person("Jan");
+            Console.WriteLine(personx.ToString());
+
+            //imię i nazwisko
+            Person personx2 = new Person("Jan", "Nowak");
+            Console.WriteLine(personx2.ToString());
         }
     }
-}
 }
