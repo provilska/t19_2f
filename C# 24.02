@@ -52,7 +52,7 @@ namespace _9_kostruktory
         {
             if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
                 throw new ArgumentException("Imię i nazwisko nie mogą być puste");
-            if (DateOfBirth > DateTime.Now)
+            if (dateOfBirth > DateTime.Now)
                 throw new ArgumentException();
            
             FirstName = firstName;
