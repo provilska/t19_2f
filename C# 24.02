@@ -1,143 +1,151 @@
 https://pastebin.com/vACq1HTb
 
 
+using System;
+
 namespace _9_kostruktory
 {
-  public enum Gender
-  {
-    Mężczyzna,
-    Kobieta,
-    Inna
-  }
- 
-  public class Person
-  {
-    //właściwości klasy Person
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public DateTime DateOfBirth { get; set; }
-    public Gender PersonGender { get; set; }
- 
-    //właściowość obliczająca wiek na podstawie daty urodzenia
-    public int Age
+    public enum Gender
     {
-      get
-      {
-        DateTime today = DateTime.Today;
-        int age = today.Year - DateOfBirth.Year;
- 
-        //sprawdzamy, czy osoba miała urodziny w tym roku
-        if (DateOfBirth.Date > today.AddYears(-age))
+        Mężczyzna,
+        Kobieta,
+        Inna
+    }
+
+    public class Person
+    {
+        //właściwości klasy Person
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public Gender PersonGender { get; set; }
+
+        //właściowość obliczająca wiek na podstawie daty urodzenia
+        public int Age
         {
-          age--;
+            get
+            {
+                DateTime today = DateTime.Today;
+                int age = today.Year - DateOfBirth.Year;
+
+                //sprawdzamy, czy osoba miała urodziny w tym roku
+                if (DateOfBirth.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
         }
- 
-        return age;
-      }
-    }
- 
-    //konstruktor domyślny
-    public Person()
-    {
-      FirstName = "Janusz";
-      LastName = "Nowak";
-      DateOfBirth = new DateTime(2001, 1, 10); //domyślna data urodzenia
-      PersonGender = Gender.Mężczyzna;
-    }
- 
-    //konstruktor parametryczny
-    public Person(string FirstName, string lastName, DateTime dateOfBirth, Gender gender)
-    {
-      this.FirstName = FirstName;
-      LastName = lastName;
-      DateOfBirth = dateOfBirth;
-      PersonGender = gender;
-    }
- 
-    public void DisplayInformation()
-    {
-      Console.WriteLine("Imię: {0}, nazwisko: {1}, Data urodzenia: {2:yyyy-MM-dd}, wiek: {3}, płeć: {4}", FirstName, LastName, DateOfBirth, Age, PersonGender);
-    }
- 
-    public string GetFullName()
-    {
-      return $"{FirstName} {LastName}";
-    }
- 
-    //nadpisanie metody ToString() do czytelnej reprezentacji obiektu
-    public override string ToString()
-    {
-      return $"Osoba: {GetFullName()}, data urodzenia: {DateOfBirth:yyyy-MM-dd}, wiek: {Age}, płeć: {PersonGender}";
-    }
- 
-    public static Person InputPersonData()
-    {
-      try
-      {
-        Console.Write("Podaj imię: ");
-        string firstName = Console.ReadLine();
- 
-        Console.Write("Podaj nazwisko: ");
-        string lastName = Console.ReadLine();
- 
-        Console.Write("Podaj datę urodzenia (RRRR-MM-DD): ");
-        DateTime dateOfBirth;
- 
-        while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
+
+        //konstruktor domyślny
+        public Person()
         {
-          Console.Write("Błędny format! Podaj datę ponownie (RRRR-MM-DD): ");
+            FirstName = "Janusz";
+            LastName = "Nowak";
+            DateOfBirth = new DateTime(2001, 1, 10); //domyślna data urodzenia
+            PersonGender = Gender.Mężczyzna;
         }
- 
-        Console.WriteLine("Wybierz płeć (1 - Mężczyzna, 2 - Kobieta, 3 - Inna): ");
-        int genderChoice;
-        while (!int.TryParse(Console.ReadLine(), out genderChoice) || genderChoice < 1 || genderChoice > 3)
+
+        //konstruktor parametryczny
+        public Person(string firstName, string lastName, DateTime dateOfBirth, Gender gender)
         {
-          Console.WriteLine("Niepoprawny wybór. WYbierz ponownie (1 - Mężczyzna, 2 - Kobieta, 3 - Inna): ");
+            if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
+                throw new ArgumentException("Imię i nazwisko nie mogą być puste");
+            if (DateOfBirth > DateTime.Now)
+                throw new ArgumentException();
+           
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            PersonGender = gender;
         }
- 
-        Gender personGender = (Gender)(genderChoice - 1);
- 
-        //tworzenie i zwrócenie nowego obiektu
-        Person newPerson = new Person(firstName, lastName, dateOfBirth, personGender);
-        return newPerson;
-      }
-      catch (ArgumentException ex)
-      {
-        //Console.WriteLine($"Błąd: {ex.Message}");
-        return null;
-      }
- 
+
+        public void DisplayInformation()
+        {
+            Console.WriteLine("Imię: {0}, nazwisko: {1}, Data urodzenia: {2:yyyy-MM-dd}, wiek: {3}, płeć: {4}", FirstName, LastName, DateOfBirth, Age, PersonGender);
+        }
+
+        public string GetFullName()
+        {
+            return $"{FirstName} {LastName}";
+        }
+
+        //nadpisanie metody ToString() do czytelnej reprezentacji obiektu
+        public override string ToString()
+        {
+            return $"Osoba: {GetFullName()}, data urodzenia: {DateOfBirth:yyyy-MM-dd}, wiek: {Age}, płeć: {PersonGender}";
+        }
+
+        public static Person InputPersonData()
+        {
+            try
+            {
+                Console.Write("Podaj imię: ");
+                string firstName = Console.ReadLine();
+
+                Console.Write("Podaj nazwisko: ");
+                string lastName = Console.ReadLine();
+
+                Console.Write("Podaj datę urodzenia (RRRR-MM-DD): ");
+                DateTime dateOfBirth;
+
+                while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
+                {
+                    Console.Write("Błędny format! Podaj datę ponownie (RRRR-MM-DD): ");
+                }
+
+                Console.WriteLine("Wybierz płeć (1 - Mężczyzna, 2 - Kobieta, 3 - Inna): ");
+                int genderChoice;
+                while (!int.TryParse(Console.ReadLine(), out genderChoice) || genderChoice < 1 || genderChoice > 3)
+                {
+                    Console.WriteLine("Niepoprawny wybór. WYbierz ponownie (1 - Mężczyzna, 2 - Kobieta, 3 - Inna): ");
+                }
+
+                Gender personGender = (Gender)(genderChoice - 1);
+
+                //tworzenie i zwrócenie nowego obiektu
+                Person newPerson = new Person(firstName, lastName, dateOfBirth, personGender);
+                return newPerson;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Błąd: {ex.Message}");
+                return null;
+            }
+
+        }
     }
-  }
- 
-  internal class Program
-  {
-    static void Main(string[] args)
+
+    internal class Program
     {
-      //tworzenie obiektu klasy Person przy użyciu konstruktora domyślnego
-      Person person1 = new Person();
- 
-      //tworzenie obiektu klasy Person przy użyciu konstruktora parametrycznego
-      Person person2 = new Person("Janina", "Szyper", new DateTime(1935, 2, 17), Gender.Kobieta);
-      Console.WriteLine(person2.Age);
- 
-      person1.DisplayInformation();
-      person2.DisplayInformation();
- 
-      Console.WriteLine("Imię i nazwisko: " + person2.GetFullName());
-      Console.WriteLine(person2.ToString());
- 
-      Person newPerson = Person.InputPersonData();
-      if (newPerson != null)
-      {
-        Console.WriteLine("\nDane osoby:");
-        Console.WriteLine(newPerson.ToString());
-      }
-      else
-      {
-        Console.WriteLine("\nNie udało się utworzyć osoby. Proszę spróbować ponownie");
-      }
- 
+        static void Main(string[] args)
+        {
+            //tworzenie obiektu klasy Person przy użyciu konstruktora domyślnego
+            Person person1 = new Person();
+
+            //tworzenie obiektu klasy Person przy użyciu konstruktora parametrycznego
+            Person person2 = new Person("Janina", "Szyper", new DateTime(1935, 2, 17), Gender.Kobieta);
+            Console.WriteLine(person2.Age);
+
+            person1.DisplayInformation();
+            person2.DisplayInformation();
+
+            Console.WriteLine("Imię i nazwisko: " + person2.GetFullName());
+            Console.WriteLine(person2.ToString());
+
+            Person newPerson = Person.InputPersonData();
+            if (newPerson != null)
+            {
+                Console.WriteLine("\nDane osoby:");
+                Console.WriteLine(newPerson.ToString());
+            }
+            else
+            {
+                Console.WriteLine("\nNie udało się utworzyć osoby. Proszę spróbować ponownie");
+            }
+
+        }
     }
-  }
+}
 }
