@@ -13,9 +13,11 @@ namespace _9_kostruktory
     {
         //właściwości klasy Person
         public string FirstName { get; set; }
+        //private string _firstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender PersonGender { get; set; }
+
 
         //właściowość obliczająca wiek na podstawie daty urodzenia
         public int Age
@@ -65,23 +67,45 @@ namespace _9_kostruktory
 
             //FirstName = firstName;
             LastName = lastName;
-           
+
 
             Console.WriteLine("Wyłowano konstruktor z dwoma parametrami");
         }
-//konstruktor z trzema parametrami
+        //konstruktor z trzema parametrami
+        public Person(string firstName, string lastName, Gender gender)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            PersonGender = gender;
+        }
+
         //konstruktor parametryczny
         public Person(string firstName, string lastName, DateTime dateOfBirth, Gender gender)
         {
-            if(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
                 throw new ArgumentException("Imię i nazwisko nie mogą być puste");
             if (dateOfBirth > DateTime.Now)
                 throw new ArgumentException("Data urodzenia nie może być w przyszłości");
-           
+
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
             PersonGender = gender;
+        }
+
+        //konstruktor kopiujący
+        public Person(Person other)
+        {
+            FirstName = other.FirstName;
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+            FirstName = other.FirstName;
+            LastName = other.LastName;
+            DateOfBirth = other.DateOfBirth;
+            PersonGender = other.PersonGender;
+
         }
 
         public void DisplayInformation()
@@ -176,6 +200,23 @@ namespace _9_kostruktory
             //imię i nazwisko
             Person personx2 = new Person("Jan", "Nowak");
             Console.WriteLine(personx2.ToString());
+
+            //imię, nazwisko, plęć
+            Person person3 = new Person("Tomasz", "Trzy", Gender.Mężczyzna);
+            Console.WriteLine(person3.ToString());
+
+            Console.WriteLine("\nDziałanie konstruktora kopiującego");
+            Person personPattern = new Person();
+            personPattern.FirstName = ("Franciszek");
+            personPattern.LastName = ("Nowak");
+            personPattern.DateOfBirth = new DateTime(2822, 3, 26);
+            personPattern.PersonGender = Gender.Mężczyzna;
+
+            Console.WriteLine("Wzorcowy obiekt:" + personPattern.ToString());
+
+            Person personCopy = new Person(personPattern);
+            Console.WriteLine("Skopiowany obiekt:" + personCopy.ToString());
+
         }
     }
 }
