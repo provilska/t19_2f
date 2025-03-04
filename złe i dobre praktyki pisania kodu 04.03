@@ -34,4 +34,45 @@ namespace _1_bugs
     }
 }
 
-//
+//błędy
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _1_bugs
+{
+    class Program
+    {
+        class Employee
+        {
+            //brak enkapsulacji, niepoprawne użycie pól zamiast własciwości(nie mamy kontroli nad ustawianiem wartości),
+            //brak zabezpieczenia przed pustym imieniem
+            public string Name;
+            public int Age; //błędny typ danych, powiniśmy zastosowa: byte (0-255), ushort(0-),
+                            //DateTime (musimy dodac metode obliczjącą wiek w czasie rzeczywistym)
+            public double Salary;
+
+            public Employee(string name, int age, double salary)
+            {
+                Name = name;
+                Age = age;
+                Salary = salary;
+            }
+            //brak walidacji w metodzie, nie sprawdzamy czy amount jest dodatni
+            public void IncreaseSalary(double amount)
+            {
+                Salary += amount;
+            }
+        }
+        static void Main(string[] args)
+        {
+            Employee employee = new Employee("Sofia", 17, 0);
+            employee.Age = -5; //możemy ustawić błędny wiek
+            employee.Salary = -1000; //możemy ustawic niegatywną pensje
+            Console.WriteLine($"Imię: {employee.Name}, Wiek: {employee.Age}, Pensja: {employee.Salary}");
+        }
+    }
+}
+
