@@ -143,16 +143,32 @@ namespace _1_fixed_version
         private static string GetValideName()
         {
             string name;
+            const byte MinLenght = 3;
+            const byte MaxLenght = 50;
+            string[] errorMessage = new string[]
+            {
+                "Imię nie może byc puste!",
+                $"Imie musze mieć conajmniej {MinLenght}",
+                $"Imie nie może przewyszczać {MaxLenght}"
+            };
             do
             {
                 Console.Write("Podaj imię: ");
                 name = Console.ReadLine()?.Trim();
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("Błąd: Imię nie może byz puste");
+                    Console.WriteLine(errorMessage[0]);
+                }
+                else if (name.Length < MinLenght)
+                {
+                    Console.WriteLine(errorMessage[1]);
+                }
+                else if (name.Length > MaxLenght)
+                {
+                    Console.WriteLine(errorMessage[2]);
                 }
             }
-            while (string.IsNullOrWhiteSpace(name));
+            while (string.IsNullOrWhiteSpace(name) || name.Length < MinLenght || name.Length>MaxLenght);
             return name;
         }
     }
