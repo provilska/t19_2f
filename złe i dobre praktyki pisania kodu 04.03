@@ -77,3 +77,83 @@ namespace _1_bugs
 }
 
 //fixed version
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace _1_fixed_version
+{
+    class Program
+    {
+        class Employee
+        {
+            public string Name { get; }
+            public DateTime DateOfBirth { get; }
+            public int Age => CalculateAge();
+            public Employee(string name, DateTime dateOfBirth)
+            {
+                Name = name;
+                DateOfBirth = dateOfBirth;
+            }
+
+            private int CalculateAge()
+            {
+                var today = DateTime.Today;
+                int age = today.Year - DateOfBirth.Year;
+                if (DateOfBirth.Date > today.AddYears(-age))
+                    age--;
+                return age;
+            }
+        }
+        static void Main(string[] args)
+        {
+            string name = GetValideName();
+            DateTime dateOfBirth = GetValideDate();
+
+            Employee employee = new Employee(name, dateOfBirth);
+            Console.WriteLine($"Pracownik: {employee.Name}, Wiek: {employee.Age}");
+        }
+
+        private static DateTime GetValideDate()
+        {
+            DateTime dateOfBirth;
+            bool isValidDate = false;
+            do
+            {
+                Console.Write("Podaj date urodzenia (RRRR-MM-DD): ");
+                string input = Console.ReadLine();
+
+                if (DateTime.TryParse(input, out dateOfBirth) && dateOfBirth <= DateTime.Now)
+                {
+                    isValidDate = true;
+                }
+                else
+                {
+                    Console.WriteLine("Podaj poprawna date uroszenia (w przeszłości)");
+                }
+            }
+            while (!isValidDate);
+            return dateOfBirth;
+            
+        }
+
+        private static string GetValideName()
+        {
+            string name;
+            do
+            {
+                Console.Write("Podaj imię: ");
+                name = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Błąd: Imię nie może byz puste");
+                }
+            }
+            while (string.IsNullOrWhiteSpace(name));
+            return name;
+        }
+    }
+}
