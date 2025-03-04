@@ -1,1 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _1_bugs
+{
+    class Program
+    {
+        class Employee
+        {
+            public string Name;
+            public int Age;
+            public double Salary;
+
+            public Employee(string name, int age, double salary)
+            {
+                Name = name;
+                Age = age;
+                Salary = salary;
+            }
+            public void IncreaseSalary(double amount)
+            {
+                Salary += amount;
+            }
+        }
+        static void Main(string[] args)
+        {
+            Employee employee = new Employee("Sofia", 17, 0000);
+            Console.WriteLine(employee.ToString());
+        }
+    }
+}
 
