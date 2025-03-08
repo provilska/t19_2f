@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace biblioteka
+{
+    internal class Program
+    {
+        class Book
+        {
+            public string Title { get; }
+            public string Autor {  get; }
+            public int YearOfPublic { get; }
+            public int Pages { get; }
+            public Book(string title, string autor, int yearOfPublic, int pages)
+            {
+                Title = title;
+                Autor = autor;
+                YearOfPublic = yearOfPublic;
+                Pages = pages;
+            }
+        }
+        static void Main(string[] args)
+        {
+            List<Book> books = new List<Book>();
+            bool exit = true;
+            while (exit)
+            {
+                DisplayMenu();
+                Console.WriteLine("Wybierz jedną z opcji: ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        AddBook(books);
+                        break;
+                    case "2":
+                        DisplayBooks(books);
+                        break;
+                    case "5":
+                        exit= false;
+                        break;
+                    default: Console.WriteLine("Wpowadż poprawną opcje");
+                        break;
+                }
+            }
+        }
+
+        private static void DisplayBooks(List<Book> books)
+        {
+            Console.WriteLine("Twoja biblioteka: ");
+            foreach(var book in books)
+            {
+                Console.WriteLine($"Tytuł: \"{book.Title}\", Autor: {book.Autor}, Rok wydania: {book.YearOfPublic}, Strony: {book.Pages}");
+            }
+        }
+
+        private static void AddBook(List<Book> books)
+        {
+            string title = IsValidString("tytuł");
+            string autor = IsValidString("autor");
+            int yearOfPublic = IsValidYear();
+            int pages = 0;
+            Book book = new Book(title, autor, yearOfPublic, pages);
+            books.Add(book);
+            Console.WriteLine($"Została dodana nowa książka! Tytuł: {book.Title}, Autor: {book.Autor}, Rok wydania: {book.YearOfPublic}, Liczba stron: {book.Pages}");
+        }
+
+        private static int IsValidYear()
+        {
+            int year;
+            int currentYear = DateTime.Today.Year;
+            do
+            {
+                Console.Write("Podaj rok wydania: ");
+            } while (!int.TryParse(Console.ReadLine(), out year) || year > currentYear || year <= 0);
+
+            return year;
+        }
+
+        const byte minLength = 3;
+        const byte maxLength = 30;
+        private static string IsValidString(string name)
+        {
+            string value;
+            string[] ErrorMessage = new string[]
+            {
+                $"Pole {name} nie może byc puste",
+                $"{name} musi mieć conajmniej {minLength} znaków",
+                $"{name} nie może mieć powyżej {maxLength} znaków"
+            };
+            do
+            {
+                Console.WriteLine($"Podaj {name}");
+                value = Console.ReadLine()?.Trim();
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine(ErrorMessage[0]);
+                }
+                else if (value.Length < minLength)
+                {
+                    Console.WriteLine(ErrorMessage[1]);
+                }
+                else if (value.Length > maxLength)
+                {
+                    Console.WriteLine(ErrorMessage[2]);
+                }
+                Console.ResetColor();
+            }
+            while (string.IsNullOrWhiteSpace(value) || value.Length < minLength || value.Length > maxLength);
+            return value;
+        }
+
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("1.Dodaj książkę");
+            Console.WriteLine("2.Wyświetl wszystkie książki");
+            Console.WriteLine("3.Usuń książke po tytule");
+            Console.WriteLine("4.Wyszukaj książkę po atuorze");
+            Console.WriteLine("5.Zakącz program");
+        }
+    }
+}
