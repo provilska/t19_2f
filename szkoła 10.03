@@ -47,3 +47,97 @@ Utwórz obiekt School za pomocą różnych konstruktorów.
 Wywołaj metody klasy i wyświetl wyniki.
 Sprawdź działanie konstruktora kopiującego.
 Przetestuj obsługę błędnych danych wejściowych (np. zły wiek, zła data, niewłaściwa klasa).
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _9_4_konstruktory
+{
+    internal class Program
+    {
+        public enum Grade
+        {
+            FirstGrade,
+            SecondGrade,
+            ThirdGrade,
+            FourthGrade,
+            FifthGrade
+        }
+        class School
+        {
+            private string _studentName;
+            private DateTime _birthDate;
+            private Grade _studentGrade;
+            private DateTime _schoolStartDate;
+        public string StudentName
+        {
+            get => _studentName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Imię ucznia nie może być puste.");
+                _studentName = value;
+            }
+        }
+            
+        public DateTime BirthDate
+            {
+                get =>_birthDate;
+                set
+                {
+                    if (value >= DateTime.Today)
+                        throw new ArgumentException("Data urodzenia nie może być w przyszłości!");
+                    _birthDate = value;
+                }
+            }
+
+        public int StudentAge
+        {
+            get
+            {
+                int age = DateTime.Today.Year - _birthDate.Year;
+
+                if (DateTime.Today < _birthDate.AddYears(age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
+
+            public Grade StudentGrade
+            {
+                get => _studentGrade;
+                set
+                {
+                    if (!Enum.IsDefined(typeof(Grade), value))
+                        throw new ArgumentException("Nieprawidłowa klasa.");
+                    _studentGrade = value;
+                }
+            }
+
+            public DateTime SchoolStartDate
+            {
+                get => _schoolStartDate;
+                set
+                {
+                    if (value > DateTime.Today)
+                        throw new ArgumentException("Data rozpoczęcia nie może być w przyszłości!");
+                }
+            }
+
+
+        }
+
+
+
+
+        static void Main(string[] args)
+        {
+        }
+    }
+}
