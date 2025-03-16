@@ -191,3 +191,145 @@ namespace AnimalApp
         }
     }
 }
+
+
+namespace animal
+{
+    
+    internal class Program
+    {
+        public enum AnimalType
+        {
+            Ssaki,
+            Ptaki,
+            Gady,
+            Płazy,
+            Ryby,
+            Owady
+        }
+        public class Animal
+        {
+            private string _name;
+            private string _species;
+            private AnimalType _type;
+            public AnimalType Type
+            {
+                get => _type;
+                set => _type = value;
+            }
+            public DateTime BirthDate { get; set; }
+
+            public string Name
+            {
+                get => _name;
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        throw new ArgumentException("Pole nie może być puste");
+                    }
+                    _name = value;
+                }
+            }
+            public string Species
+            {
+                get => _species;
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        throw new ArgumentException("Pole nie może być puste");
+                    }
+                    _species = value;
+                }
+            }
+            public override string ToString()
+            {
+                return $"Dane zwierzątka: Imię: {Name}, Gatunek: {Species}, Typ: {Type}";
+            }
+            //konstruktor domyślny
+            public Animal()
+            {
+                Name = "Wienia";
+                Species = "Kot";
+                Type = AnimalType.Owady;
+            }
+            //konstruktor z jednym parametrem
+            public Animal(string name)
+            {
+                Name = name;
+            }
+            //konstruktor z dwoma parametrami
+            public Animal(string name, string species)
+            {
+                Name = name;
+                Species = species;
+            }
+            //konstruktor z trzema parametrami
+            public Animal(string name, string species, AnimalType type)
+            {
+                Name = name;
+                Species = species;
+                Type = type;
+            }
+            //konstruktor z czterema parametrami i walidacją daty
+            public Animal(string name, string species, AnimalType type, DateTime birthDate) : this(name, species, type)
+            {
+                if (birthDate > DateTime.Now)
+                    throw new ArgumentException("Data urodzenia nie może być w przyszłości.");
+                BirthDate = birthDate;
+            }
+
+            public static Animal InputAnimalData()
+            {
+                try
+                {
+                    Console.WriteLine("Podaj imię: ");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Podaj gatunek: ");
+                    string species = Console.ReadLine();
+
+                    Console.WriteLine("Podaj typ (0 - Ssaki, 1 - Ptaki, 2 - Gady, 3 - Płazy, 4 - Ryby, 5 - Owady): ");
+                    int choice;
+                    while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 5)
+                    {
+                        Console.WriteLine("Niepoprawny wybór");
+                    }
+                    AnimalType type = (AnimalType)choice;
+
+                    Console.WriteLine("Podaj datę urodzennia (YYYY-MM-DD):");
+                    DateTime birthDate;
+                    while(!DateTime.TryParse(Console.ReadLine(), out birthDate)){
+                        Console.Write("Niepoprawny format! Podaj ponownie: ");
+                    }
+                    return new Animal(name, species, type, birthDate);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            Animal animal = new Animal();
+            Console.WriteLine($"Zwierze domyślne: {animal.Name}, {animal.Species}, {animal.Type}");
+
+            Animal animal2 = new Animal("Holly");
+            Console.WriteLine($"Konstruktor z jednym parametrem: Imię: {animal2.Name}");
+
+            Animal animal3 = new Animal("Holly", "Pies");
+            Console.WriteLine($"Konstruktor z z dwoma parametrami: Imię: {animal3.Name}, Gatunek: {animal3.Species}");
+
+            Animal animal4 = new Animal("Holly", "Pies", AnimalType.Ssaki);
+            Console.WriteLine($"Konstruktor z z trzema parametrami: Imię: {animal4.Name}, Gatunek: {animal4.Species}, Typ: {animal4.Type}");
+
+            Animal userAnimal = Animal.InputAnimalData();
+            Console.WriteLine(userAnimal);
+        }
+
+        
+    }
+}
