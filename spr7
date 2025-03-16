@@ -29,3 +29,165 @@ o Upewnij się, że metoda obsługuje błędne wejścia (np. niepoprawny format 
 o Utwórz obiekt Animal za pomocą różnych konstruktorów.
 o Wywołaj metody klasy i wyświetl wyniki.
 o Sprawdź działanie konstruktora kopiującego.
+
+using System;
+
+namespace AnimalApp
+{
+    public enum AnimalType
+    {
+        Ssaki,
+        Ptaki,
+        Gady,
+        Płazy,
+        Ryby,
+        Owady
+    }
+
+    public class Animal
+    {
+        private string _name;
+        private string _species;
+        
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Imię nie może być puste.");
+                _name = value;
+            }
+        }
+        
+        public string Species
+        {
+            get => _species;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Gatunek nie może być pusty.");
+                _species = value;
+            }
+        }
+
+        public AnimalType Type { get; set; }
+        public DateTime BirthDate { get; set; }
+        
+        // Konstruktor domyślny
+        public Animal()
+        {
+            Name = "Nieznane";
+            Species = "Nieznany";
+            Type = AnimalType.Ssaki;
+            BirthDate = DateTime.MinValue;
+        }
+
+        // Konstruktor z jednym parametrem
+        public Animal(string name) : this()
+        {
+            Name = name;
+        }
+        
+        // Konstruktor z dwoma parametrami
+        public Animal(string name, string species) : this(name)
+        {
+            Species = species;
+        }
+        
+        // Konstruktor z trzema parametrami
+        public Animal(string name, string species, AnimalType type) : this(name, species)
+        {
+            Type = type;
+        }
+        
+        // Konstruktor z czterema parametrami i walidacją daty
+        public Animal(string name, string species, AnimalType type, DateTime birthDate) : this(name, species, type)
+        {
+            if (birthDate > DateTime.Now)
+                throw new ArgumentException("Data urodzenia nie może być w przyszłości.");
+            BirthDate = birthDate;
+        }
+        
+        // Konstruktor kopiujący
+        public Animal(Animal other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+            
+            Name = other.Name;
+            Species = other.Species;
+            Type = other.Type;
+            BirthDate = other.BirthDate;
+        }
+
+        public override string ToString()
+        {
+            return $"Zwierzę: {Name}, Gatunek: {Species}, Typ: {Type}, Data urodzenia: {BirthDate:yyyy-MM-dd}";
+        }
+        
+        public static Animal InputAnimalData()
+        {
+            try
+            {
+                Console.Write("Podaj imię zwierzęcia: ");
+                string name = Console.ReadLine();
+                
+                Console.Write("Podaj gatunek: ");
+                string species = Console.ReadLine();
+                
+                Console.WriteLine("Wybierz typ zwierzęcia (0 - Ssaki, 1 - Ptaki, 2 - Gady, 3 - Płazy, 4 - Ryby, 5 - Owady):");
+                int typeChoice;
+                while (!int.TryParse(Console.ReadLine(), out typeChoice) || typeChoice < 0 || typeChoice > 5)
+                {
+                    Console.WriteLine("Niepoprawny wybór, spróbuj ponownie.");
+                }
+                AnimalType type = (AnimalType)typeChoice;
+                
+                Console.Write("Podaj datę urodzenia (RRRR-MM-DD): ");
+                DateTime birthDate;
+                while (!DateTime.TryParse(Console.ReadLine(), out birthDate))
+                {
+                    Console.Write("Niepoprawny format! Podaj ponownie: ");
+                }
+                
+                return new Animal(name, species, type, birthDate);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Błąd: " + ex.Message);
+                return null;
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Animal animal1 = new Animal();
+            Animal animal2 = new Animal("Azor");
+            Animal animal3 = new Animal("Bella", "Pies");
+            Animal animal4 = new Animal("Kicia", "Kot", AnimalType.Ssaki);
+            Animal animal5 = new Animal("Nemo", "Złota Rybka", AnimalType.Ryby, new DateTime(2020, 5, 15));
+            
+            Console.WriteLine(animal1);
+            Console.WriteLine(animal2);
+            Console.WriteLine(animal3);
+            Console.WriteLine(animal4);
+            Console.WriteLine(animal5);
+            
+            Console.WriteLine("\nTest konstruktora kopiującego:");
+            Animal animalCopy = new Animal(animal5);
+            Console.WriteLine("Skopiowany obiekt: " + animalCopy);
+            
+            Console.WriteLine("\nWprowadzanie danych od użytkownika:");
+            Animal userAnimal = Animal.InputAnimalData();
+            if (userAnimal != null)
+            {
+                Console.WriteLine("Dane wprowadzonego zwierzęcia:");
+                Console.WriteLine(userAnimal);
+            }
+        }
+    }
+}
