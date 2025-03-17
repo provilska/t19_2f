@@ -52,3 +52,69 @@ namespace SofiaProvilska2f
         }
     }
 }
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _10_destruktory
+{
+    class FileHandler: IDisposable
+    {
+        private string fileName;
+        private string content;
+        //konstruktor-wywolywany przy tworzeniu obiektu
+        public FileHandler(string fileName)
+        {
+            this.fileName = fileName;
+            this.content = "zawartość pliku";
+            Console.WriteLine($"Plik {fileName} został otwarty");
+        }
+        //dystruktor-wywoływany automatycznie przy usuwaniu obiektu
+        ~FileHandler()
+        {
+            Console.WriteLine($"plik {fileName} został zamknięty");
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.S
+        }
+        public void ShowContent()
+        {
+            Console.WriteLine($"zawartość pliku {fileName}: ");
+        }
+    }
+        internal class Program
+        {
+        static void UseFile()
+        {
+            //tworzymy obiekt klasy FileHandler
+            FileHandler file = new FileHandler("document.txt");
+            file.ShowContent();
+            System.Threading.Thread.Sleep(2000);
+        }
+        
+
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Rozpoczęcie programu");
+            //wywolujemy metodę która tworzy obiekt FileHandler
+            UseFile();
+            Console.WriteLine("Wymuszenie czyśćenia pamięci");
+            //ręczne uruchomienia garbage collectora
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            //GC.Collect()-wymusza uruchomienia garbage cotectora, który przeszuka pamięć w poszukiwaniu nieużywanych obiektów
+
+            //GC.WaitForPendingFinalizers();- czeka aż wszystkie dystruktory (~FileHandler()) zostaną wykonane
+            Console.WriteLine("Koniec programu");
+            Console.ReadKey();
+        }
+    }
+}
