@@ -1,1 +1,8 @@
-
+tylda
+nie zwraca wartości
+jest wyłowywany przy usuwaniu obiektu automatycznue
+nie można przeciążać
+alokacja, zabespieczenie pamięci, zwalnianie zasobów
+destruktory są używane w klasaach z nie zarządzonymi zasobami 
+ jest zależny od gabrig collector
+inicjalizacja obiektu - wykonują kod sprzątający przed usunięcięm obiektu dispose
