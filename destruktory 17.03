@@ -61,10 +61,11 @@ using System.Threading.Tasks;
 
 namespace _10_destruktory
 {
-    class FileHandler: IDisposable
+    class FileHandler : IDisposable
     {
         private string fileName;
         private string content;
+        private bool disposed = false;
         //konstruktor-wywolywany przy tworzeniu obiektu
         public FileHandler(string fileName)
         {
@@ -80,23 +81,39 @@ namespace _10_destruktory
         public void Dispose()
         {
             Dispose(true);
-            GC.S
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    Console.WriteLine($"Plik {fileName} został zamkniety.");
+                }
+                disposed = true;
+            }
         }
         public void ShowContent()
         {
             Console.WriteLine($"zawartość pliku {fileName}: ");
         }
     }
-        internal class Program
-        {
+    internal class Program
+    {
         static void UseFile()
         {
-            //tworzymy obiekt klasy FileHandler
-            FileHandler file = new FileHandler("document.txt");
-            file.ShowContent();
-            System.Threading.Thread.Sleep(2000);
+            using (FileHandler fileHandler = new FileHandler("document.txt"))
+            {
+                fileHandler.ShowContent();
+            }
+
+            ////tworzymy obiekt klasy FileHandler
+            //FileHandler file = new FileHandler("document.txt");
+            //file.ShowContent();
+            //System.Threading.Thread.Sleep(2000);
         }
-        
+
 
 
         static void Main(string[] args)
@@ -106,13 +123,13 @@ namespace _10_destruktory
             UseFile();
             Console.WriteLine("Wymuszenie czyśćenia pamięci");
             //ręczne uruchomienia garbage collectora
-            
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            //GC.Collect()-wymusza uruchomienia garbage cotectora, który przeszuka pamięć w poszukiwaniu nieużywanych obiektów
+            //GC.Collect() - wymusza uruchomienia garbage cotectora, który przeszuka pamięć w poszukiwaniu nieużywanych obiektów
 
-            //GC.WaitForPendingFinalizers();- czeka aż wszystkie dystruktory (~FileHandler()) zostaną wykonane
+            //GC.WaitForPendingFinalizers() - czeka aż wszystkie dystruktory (~FileHandler()) zostaną wykonane
             Console.WriteLine("Koniec programu");
             Console.ReadKey();
         }
