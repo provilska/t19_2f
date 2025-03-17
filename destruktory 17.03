@@ -6,3 +6,49 @@ alokacja, zabespieczenie pamięci, zwalnianie zasobów
 destruktory są używane w klasaach z nie zarządzonymi zasobami 
  jest zależny od gabrig collector
 inicjalizacja obiektu - wykonują kod sprzątający przed usunięcięm obiektu dispose
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SofiaProvilska2f
+{
+        class FileHandler
+        {
+            private string fileName;
+            public FileHandler(string fileName)
+            {
+                this.fileName = fileName;
+                Console.WriteLine($"Plik o nazwie {fileName} został otwarty.");
+            }
+            //destruktor wywoływany automatycznie
+            ~FileHandler()
+            {
+                Console.WriteLine($"Plik {fileName} został zamknięty.");
+            }
+        }
+    class Program
+    {
+        static void UseFile()
+        {
+            //tworzymu obiekt klasy FileHandle
+            FileHandler file = new FileHandler("document.txt");
+
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Rozpoczęcie programu");
+
+            //wywołujemy metodę która tworzy obiekt FileHandle
+            Console.WriteLine("Wymuszenie czyśczenia pamięci.");
+
+            //ręczne uruchomienie garbage collector
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            //GC.Collect() - wymusza uruchomienie garbage collectora, który przeszuka pamięć w poszukiwaniu nieużywanych obiektów
+            // GC.WaitForPendingFinalizers() - czeka aż wszystkie destruktory FileHandle zostaną wykonane
+        }
+    }
+}
