@@ -132,3 +132,18 @@ namespace ConsoleApp2
         }
     }
 }
+
+// zastosowanie var dla przejrzystości kodu
+var names = new List<string> { "Katarzyna", "Jan", "Franciszek" };
+var users = new Dictionary<int, string>();
+
+//fixed 3.1
+// zmiana pętli for na foreach
+string[] names = { "Katarzyna", "Jan", "Franciszek" };
+var users = new Dictionary<int, string>();
+
+int index = 1;
+foreach (var name in names)
+{
+    users.Add(index++, name);
+}
