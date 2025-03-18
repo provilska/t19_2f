@@ -1,1 +1,5 @@
-
+refaktoryzacja
+proces restrukturyzacji kodu, ma pomóc poprawić czytelność, wydajność, przejszystość
+ma ułatwiać utrzymanie i rozszeżanie kodu(skalowalność)
+eleminacja duplikacji kodu, zmniejsza ryzyko błędów
+optymizacja wydajności
