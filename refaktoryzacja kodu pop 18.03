@@ -147,3 +147,84 @@ foreach (var name in names)
 {
     users.Add(index++, name);
 }
+
+//fixed 4.0
+// unikanie NullReferenceException poprzez ??
+string name = null;
+if (name == null) name = "Domyślna wartośc";
+
+string[] names = { "Katarzyna", "Jan", "Franciszek" };
+var users = new Dictionary<int, string>();
+
+int index = 1;
+foreach (var userName in names)
+{
+    users.Add(index++, userName);
+}
+
+//blędny 5.0
+using System;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // konwersja dużych instrukcji if na Dictionary
+
+            string name = null;
+            if (name == null) name = "Domyślna wartośc";
+
+            string[] names = { "Katarzyna", "Jan", "Franciszek" };
+            var users = new Dictionary<int, string>();
+
+            int index = 1;
+            foreach (var userName in names)
+            {
+                users.Add(index++, userName);
+            }
+
+            Console.WriteLine("Podaj id użytkownika (1-3)");
+            if (int.TryParse(Console.ReadLine(), out int userId) && users.ContainsKey(userId))
+            {
+                string userName = users[userId];
+                string role = GetUserRole(userId);
+                Console.WriteLine($"Użytkownik: {userName}, rola użytkownika: {role}");
+            }
+            else
+            {
+                Console.WriteLine("Niepoprawny numer roli.");
+            }
+            Console.Write("Podaj typ klienta (Silver, Gold, Platinum): ");
+            string customerType = Console.ReadLine();
+            int discount = GetDiscount(customerType);
+            Console.WriteLine($"Rabat dla klienta {customerType}: {discount}%");
+        }
+
+        private static int GetDiscount(string customerType)
+        {
+            if (customerType == "Silver") return 5;
+            else if (customerType == "Gold") return 10;
+            else if (customerType == "Platinum") return 15;
+            else return 0;
+        }
+
+        private static string GetUserRole(int roleId)
+        {
+            switch (roleId)
+            {
+                case 1:
+                    return "Administrator";
+                case 2:
+                    return "Moderator";
+                case 3:
+                    return "Użytkownik";
+                default:
+                    return "Nieznana rola";
+            }
+        }
+    }
+}
+
+//fixed 5.1
