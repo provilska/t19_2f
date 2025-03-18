@@ -80,4 +80,4 @@ private static string GetUserRole(int roleId) => roleId switch
     2 => "Moderator",
     3 => "Uzytkownik",
     _ => "Nieznana rola",
-};
+}; //działa jako wyrażenie - fragment kodu zwraca wartość zamiast instrukcji bez stosowa
