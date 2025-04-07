@@ -1,3 +1,177 @@
+class Program
+{
+    static void Main()
+    {
+        var discounts = new Dictionary<string, int>
+        {
+            {"Silver" ,5},
+            {"Gold", 10 },
+            {"Platinum", 15 }
+
+        };
+
+        Console.Write("Podaj typ klienta (Silver, Gold, Platinum): ");
+        string customerType = Console.ReadLine();
+
+        if (discounts.TryGetValue(customerType, out int discount))
+        {
+            Console.WriteLine($"Rabat dla klienta {customerType}: {discount}%");
+        }
+        else
+        {
+            Console.WriteLine("Nieznany typ klienta. Rabat: 0%");
+        }
+        //if (discounts.ContainsKey(customerType))
+        //{
+        //    int discount = discounts[customerType];
+        //}
+
+
+        var products = new Dictionary<string, double>
+        {
+            {"Chleb" ,3.50 },
+            {"Mleko" , 2.80 },
+            {"Ser"  , 6.00 },
+            {"Masło", 4.20 },
+            {"Jajka", 5.00 }
+        };
+
+        Console.WriteLine("Podaj jaki produkt chciałbyś kupić: (Chleb, Mleko, Ser, Masło, Jajka)");
+        string product = Console.ReadLine();
+        if(products.TryGetValue(product, out double cost)){
+            Console.WriteLine($"{product} -> {cost}zł");
+        }
+        else
+        {
+            Console.WriteLine("Produkt nie znaleziono");
+        }
+
+
+       
+
+        Console.Write("Podaj status zamówienia (1 - Nowe, 2 - W trakcie, 3 - Wysłane, 4 - Zrealizowane): ");
+
+        if (int.TryParse(Console.ReadLine(), out int statusId))
+
+        {
+
+            string statusDescription = GetOrderStatusDescription(statusId);
+
+            Console.WriteLine($"Status zamówienia: {statusDescription}");
+
+        }
+
+        else
+
+        {
+
+            Console.WriteLine("Niepoprawny status zamówienia.");
+
+        }
+
+        Console.Write("Wybierz klasę biletu (E - Ekonomiczna, B - Biznesowa, F - Pierwsza klasa): ");
+
+        string ticketType = Console.ReadLine();
+
+
+
+        string ticketClass = GetTicketClass(ticketType);
+
+        Console.WriteLine($"Wybrana klasa: {ticketClass}");
+
+    }
+    private static string GetTicketClass(string ticketType)
+
+    {
+
+        var classes = new Dictionary<string, string>
+        {
+            {"E" , "Ekonomiczna" },
+            {"B" , "Biznesowa" }, 
+            {"F" , "Pierwsza klasa" }
+        };
+        if (classes.TryGetValue(ticketType, out string clasa))
+        {
+            return clasa;
+        }
+        else
+        {
+            return "Nieznany status";
+        }
+
+    }
+
+
+    private static string GetOrderStatusDescription(int statusId)
+
+    {
+
+        var status = new Dictionary<int, string>
+        {
+            {1, "Nowe" },
+            {2, "W trakcie"},
+            {3, "Wysłane" },
+            {4, "Zrealizowane"}
+        };
+        if (status.TryGetValue(statusId, out string description))
+        {
+            return description;
+        }
+        else
+        {
+            return "Nieznany status";
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using System;
 
 namespace AnimalApp
