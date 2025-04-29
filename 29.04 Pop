@@ -1,1 +1,66 @@
 //testowanie
+
+mkdir testowanie
+
+
+    Directory: C:\Users\egzamin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29.04.2025     07:35                testowanie
+
+
+PS C:\Users\egzamin> cd testowanie
+PS C:\Users\egzamin\testowanie> dir .\MyApp
+dir : Cannot find path 'C:\Users\egzamin\testowanie\MyApp' because it does not exist.
+At line:1 char:1
++ dir .\MyApp
++ ~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\egzamin\testowanie\MyApp:String) [Get-ChildItem], ItemNotFound
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+PS C:\Users\egzamin\testowanie> dir
+PS C:\Users\egzamin\testowanie> dir .\MyApp
+dir : Cannot find path 'C:\Users\egzamin\testowanie\MyApp' because it does not exist.
+At line:1 char:1
++ dir .\MyApp
++ ~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\egzamin\testowanie\MyApp:String) [Get-ChildItem], ItemNotFound
+   Exception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+PS C:\Users\egzamin\testowanie> pwd
+
+Path
+----
+C:\Users\egzamin\testowanie
+
+
+PS C:\Users\egzamin\testowanie> dir
+PS C:\Users\egzamin\testowanie> dir -Force
+PS C:\Users\egzamin\testowanie> New-Item -ItemType Directory -Name MyApp
+
+
+    Directory: C:\Users\egzamin\testowanie
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29.04.2025     07:40                MyApp
+
+
+PS C:\Users\egzamin\testowanie> dir
+
+
+    Directory: C:\Users\egzamin\testowanie
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29.04.2025     07:40                MyApp
+
+
+PS C:\Users\egzamin\testowanie> cd MyApp
+PS C:\Users\egzamin\testowanie\MyApp>
