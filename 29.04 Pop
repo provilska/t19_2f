@@ -186,3 +186,7 @@ Nie można odnaleźć projektu ani katalogu „.\MyApp\MyApp.csproj”.
 PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test>
 PS C:\Users\egzamin\testowanie> cd MyApp
 PS C:\Users\egzamin\testowanie\MyApp>
+
+
+//MyApp, MyApp Unit test
+ dotnet test .\MyApp.Test\
