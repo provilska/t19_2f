@@ -1,6 +1,11 @@
 //testowanie
 
-mkdir testowanie
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\egzamin> mkdir testowanie
 
 
     Directory: C:\Users\egzamin
@@ -62,5 +67,122 @@ Mode                 LastWriteTime         Length Name
 d-----        29.04.2025     07:40                MyApp
 
 
+PS C:\Users\egzamin\testowanie> cd MyApp
+PS C:\Users\egzamin\testowanie\MyApp> dotnet new xunit -n MyApp.test
+
+.NET 9.0 — Zapraszamy!
+---------------------
+Wersja zestawu SDK: 9.0.200
+
+Telemetria
+---------
+Narzędzia platformy .NET zbierają dane użycia, aby ułatwić nam ulepszanie środowiska. Są one zbierane przez firmę Microsoft i udostępniane społeczności. Możesz zrezygnować z telemetrii, ustawiając zmienną środowiskową DOTNET_CLI_TELEMETRY_OPTOUT na wartość „1” lub „true” przy użyciu ulubionej powłoki.
+
+Dowiedz się więcej na temat telemetrii narzędzi interfejsu wiersza polecenia programu .NET Core: https://aka.ms/dotnet-cli-telemetry
+
+
+----------------Instalował certyfikat deweloperski https ASP.NET Core.
+Aby zaufać certyfikatowi, uruchom polecenie "dotnet dev-certs https --trust"
+Dowiedz się więcej o https: https://aka.ms/dotnet-https
+
+----------------
+Napisz swoją pierwszą aplikację: https://aka.ms/dotnet-hello-world
+Dowiedz się, co nowego: https://aka.ms/dotnet-whats-new
+Zapoznaj się z dokumentacją: https://aka.ms/dotnet-docs
+Zgłoś problemy i znajdź źródło w witrynie GitHub: https://github.com/dotnet/core
+Użyj polecenia „dotnet --help”, aby wyświetlić dostępne polecenia, lub odwiedź stronę: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+Pomyślnie utworzono szablon "xUnit — projekt testowy".
+
+Trwa przetwarzanie akcji po utworzeniu...
+Przywracanie pakietu C:\Users\egzamin\testowanie\MyApp\MyApp.test\MyApp.test.csproj:
+Przywracanie powiodło się.
+
+
+PS C:\Users\egzamin\testowanie\MyApp> cd MyApp.Test
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet add reference ..\MyApp\MyApp.csproj
+Nie można odnaleźć projektu ani katalogu „..\MyApp\MyApp.csproj”.
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dir
+
+
+    Directory: C:\Users\egzamin\testowanie\MyApp\MyApp.Test
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29.04.2025     07:42                obj
+-a----        29.04.2025     07:42            635 MyApp.test.csproj
+-a----        29.04.2025     07:42            111 UnitTest1.cs
+
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet add reference ../MyApp/MyApp.csproj
+Nie można odnaleźć projektu ani katalogu „../MyApp/MyApp.csproj”.
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet test
+Zakończono przywracanie (1,3s)
+  MyApp.test powodzenie (8,9s) → bin\Debug\net9.0\MyApp.test.dll
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.2)
+[xUnit.net 00:00:00.78]   Discovering: MyApp.test
+[xUnit.net 00:00:00.88]   Discovered:  MyApp.test
+[xUnit.net 00:00:00.89]   Starting:    MyApp.test
+[xUnit.net 00:00:00.96]   Finished:    MyApp.test
+  MyApp.test test powodzenie (5,6s)
+
+Podsumowanie testu: łącznie: 1; niepowodzenie: 0; zakończone powodzeniem: 1; pominięto: 0; czas trwania: 3,9s
+Kompiluj powodzenie w 24,5s
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> cd MyApp.Test
+cd : Cannot find path 'C:\Users\egzamin\testowanie\MyApp\MyApp.Test\MyApp.Test' because it does not exist.
+At line:1 char:1
++ cd MyApp.Test
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\egzami...Test\MyApp.Test:String) [Set-Location], ItemNotFoundE
+   xception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> pwd
+
+Path
+----
+C:\Users\egzamin\testowanie\MyApp\MyApp.Test
+
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dir
+
+
+    Directory: C:\Users\egzamin\testowanie\MyApp\MyApp.Test
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29.04.2025     07:45                bin
+d-----        29.04.2025     07:45                obj
+-a----        29.04.2025     07:42            635 MyApp.test.csproj
+-a----        29.04.2025     07:42            111 UnitTest1.cs
+
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet new sln -n MyAppSolution
+Pomyślnie utworzono szablon "Plik rozwiązania".
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet sln MyAppSolution.sln add ..\MyApp\MyApp.csproj
+Nie można odnaleźć projektu ani katalogu „..\MyApp\MyApp.csproj”.
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> cd testowanie
+cd : Cannot find path 'C:\Users\egzamin\testowanie\MyApp\MyApp.Test\testowanie' because it does not exist.
+At line:1 char:1
++ cd testowanie
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\egzami...Test\testowanie:String) [Set-Location], ItemNotFoundE
+   xception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> cd ...
+cd : An object at the specified path C:\Users\egzamin\testowanie\MyApp\MyApp.Test\... does not exist.
+At line:1 char:1
++ cd ...
++ ~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Set-Location], PSArgumentException
+    + FullyQualifiedErrorId : Argument,Microsoft.PowerShell.Commands.SetLocationCommand
+
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test> dotnet sln add .\MyApp\MyApp.csproj
+Nie można odnaleźć projektu ani katalogu „.\MyApp\MyApp.csproj”.
+PS C:\Users\egzamin\testowanie\MyApp\MyApp.Test>
 PS C:\Users\egzamin\testowanie> cd MyApp
 PS C:\Users\egzamin\testowanie\MyApp>
